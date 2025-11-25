@@ -1,0 +1,370 @@
+:root {
+    --bg-white: #ffffff;
+    --primary-gradient: linear-gradient(180deg, #3a506b 0%, #1c2e4a 100%);
+    /* Ajustado al azul oscuro del PDF */
+    --accent-cyan: #00d2ff;
+    /* Color del botón Ingresar */
+    --text-white: #ffffff;
+    --input-border: rgba(255, 255, 255, 0.5);
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Montserrat', sans-serif;
+    background-image: url('../assets/bg.avif');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0;
+}
+
+/* Contenedor principal simulando móvil */
+.login-wrapper {
+    width: 100%;
+    max-width: 400px;
+    /* Reduced width to match design */
+    /* height: auto; Removed fixed height to fit content */
+    background-color: transparent;
+    /* Transparent to show rounded corners properly */
+    display: flex;
+    flex-direction: column;
+    border-radius: 30px;
+    /* Rounded corners for the whole card */
+    overflow: hidden;
+    /* Clip content to border radius */
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+}
+
+/* Header con Logo */
+.brand-header {
+    flex: 1;
+    /* Ocupa el espacio superior */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    background-color: white;
+}
+
+.logo {
+    max-width: 180px;
+    height: auto;
+}
+
+/* Tarjeta Inferior Azul */
+/* Tarjeta Inferior Azul */
+.login-card {
+    /* flex: 2; Removed flex to allow auto height */
+    background: linear-gradient(180deg, rgba(68, 96, 117, 0.9) 0%, rgba(22, 33, 62, 0.95) 100%);
+    /* Added transparency */
+    border-top-left-radius: 30px;
+    border-top-right-radius: 30px;
+    padding: 40px 30px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-white);
+    /* Backdrop filter for glassmorphism effect if supported */
+    backdrop-filter: blur(5px);
+}
+
+.welcome-title {
+    font-weight: 400;
+    margin-bottom: 30px;
+    font-size: 1.5rem;
+    letter-spacing: 1px;
+}
+
+.login-form {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+/* Estilos de Inputs Personalizados */
+.input-group {
+    position: relative;
+    width: 100%;
+}
+
+.input-group input {
+    width: 100%;
+    padding: 15px;
+    background: transparent;
+    border: 1px solid var(--input-border);
+    border-radius: 15px;
+    color: white;
+    font-size: 1rem;
+    outline: none;
+}
+
+.input-group input:focus {
+    border-color: var(--accent-cyan);
+}
+
+/* Efecto flotante simple para el label/placeholder */
+.input-group label {
+    position: absolute;
+    left: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: rgba(255, 255, 255, 0.7);
+    pointer-events: none;
+    transition: 0.3s ease;
+}
+
+/* Cuando el input tiene foco o texto, mueve el label arriba (opcional, o dejar como placeholder simple) */
+.input-group input:focus+label,
+.input-group input:not(:placeholder-shown)+label {
+    top: -10px;
+    font-size: 0.8rem;
+    background-color: #2b3d55;
+    /* Pequeño parche para tapar la línea si quieres */
+    padding: 0 5px;
+    display: none;
+    /* En este diseño parece ser un placeholder simple, si prefieres que desaparezca, descomenta display:none */
+}
+
+/* Sobrescribimos para que parezca placeholder normal como en el PDF */
+.input-group input::placeholder {
+    color: transparent;
+}
+
+.input-group label {
+    display: block;
+    /* Mantenemos label visible si actúa como placeholder */
+}
+
+.input-group input:focus+label,
+.input-group input:not(:placeholder-shown)+label {
+    display: none;
+}
+
+
+/* Botón Ingresar */
+.btn-primary {
+    background-color: var(--accent-cyan);
+    color: white;
+    border: none;
+    padding: 15px;
+    border-radius: 15px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.3s;
+    margin-top: 10px;
+}
+
+.btn-primary:hover {
+    background-color: #00b8e6;
+}
+
+/* Link Olvidé contraseña */
+.forgot-password {
+    margin-top: 20px;
+    color: rgba(255, 255, 255, 0.8);
+    text-decoration: none;
+    font-size: 0.9rem;
+}
+
+.forgot-password:hover {
+    text-decoration: underline;
+}
+
+/* Page Title outside card */
+.page-title {
+    color: rgba(255, 255, 255, 0.8);
+    text-align: center;
+    margin-bottom: 20px;
+    font-weight: 300;
+    font-size: 1.8rem;
+}
+
+/* Recovery specific adjustments */
+.recovery-wrapper {
+    background: transparent;
+    box-shadow: none;
+    overflow: visible;
+    height: auto;
+    border-radius: 0;
+}
+
+.recovery-card {
+    border-radius: 30px;
+    /* Full rounded card */
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    background: linear-gradient(180deg, rgba(22, 33, 62, 0.8) 0%, rgba(22, 33, 62, 0.9) 100%);
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+}
+
+.card-subtitle {
+    font-size: 0.9rem;
+    margin-bottom: 20px;
+    color: rgba(255, 255, 255, 0.8);
+    font-weight: 400;
+}
+
+/* Message box below card */
+.recovery-message {
+    background-color: white;
+    padding: 20px;
+    margin-top: 40px;
+    max-width: 400px;
+    text-align: center;
+    color: #555;
+    font-size: 0.9rem;
+    line-height: 1.5;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+/* Dashboard Styles */
+.dashboard-body {
+    display: block;
+    /* Reset flex display from body */
+    height: auto;
+    min-height: 100vh;
+}
+
+.dashboard-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 40px;
+    /* background: rgba(0, 0, 0, 0.2); Optional header background */
+}
+
+.home-icon {
+    width: 30px;
+    height: 30px;
+    cursor: pointer;
+}
+
+.user-profile {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 30px;
+    padding: 10px 20px;
+    background: rgba(255, 255, 255, 0.05);
+    width: 100%;
+    max-width: 600px;
+    /* Search bar style width */
+    justify-content: space-between;
+}
+
+.user-info {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: white;
+    font-size: 0.9rem;
+}
+
+.user-icon {
+    width: 24px;
+    height: 24px;
+}
+
+.arrow-icon {
+    width: 16px;
+    height: 16px;
+}
+
+.dashboard-main {
+    padding: 40px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.section-title {
+    color: rgba(255, 255, 255, 0.8);
+    font-weight: 300;
+    font-size: 1.5rem;
+    margin-bottom: 30px;
+}
+
+.services-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 30px;
+}
+
+.service-card {
+    background: linear-gradient(180deg, rgba(22, 33, 62, 0.8) 0%, rgba(22, 33, 62, 0.9) 100%);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 20px;
+    padding: 40px 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    height: 250px;
+    transition: transform 0.3s;
+}
+
+.service-card:hover {
+    transform: translateY(-5px);
+}
+
+.service-logo {
+    color: white;
+    font-size: 1.5rem;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-top: 20px;
+}
+
+.service-btn {
+    width: 100%;
+    max-width: 180px;
+    padding: 10px;
+    border-radius: 10px;
+    background-color: var(--accent-cyan);
+    color: white;
+    border: none;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.service-btn:hover {
+    background-color: #00b8e6;
+}
+
+.dashboard-footer {
+    position: fixed;
+    bottom: 20px;
+    left: 40px;
+    right: 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    pointer-events: none;
+    /* Let clicks pass through if needed */
+}
+
+.footer-logo {
+    width: 40px;
+    height: auto;
+}
+
+.footer-text {
+    color: white;
+    font-size: 0.7rem;
+    letter-spacing: 1px;
+    font-weight: 600;
+}
