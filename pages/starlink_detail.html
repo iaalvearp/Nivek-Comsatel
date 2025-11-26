@@ -40,6 +40,8 @@
 
 
     <script src="../js/index.js"></script>
+    <script src="../js/grafico-consumo.js"></script>
+    <script src="../js/grafico-rendimiento.js"></script>
 
     <div class="dashboard-container">
         <aside class="dashboard-sidebar">
@@ -120,19 +122,45 @@
 
                                 <div class="detail-section detail-card">
                                     <label>USO TOTAL DE DATOS <span class="highlight-blue">9.3 GB</span></label>
-                                    <div class="chart-placeholder">
-                                        <!-- Placeholder for the bar chart -->
-                                        <div class="chart-bars">
-                                            <div class="chart-bar" style="height: 10%;"></div>
-                                            <div class="chart-bar" style="height: 30%;"></div>
-                                            <div class="chart-bar active" style="height: 60%;"></div>
-                                            <div class="chart-bar" style="height: 20%;"></div>
-                                            <div class="chart-bar" style="height: 10%;"></div>
-                                            <div class="chart-bar" style="height: 5%;"></div>
+
+                                    <!-- Botones de meses -->
+                                    <div class="botones-meses">
+                                        <button class="btn-mes" id="btn-mes-abr" data-mes="abr">ABR</button>
+                                        <button class="btn-mes" id="btn-mes-may" data-mes="may">MAY</button>
+                                        <button class="btn-mes" id="btn-mes-jun" data-mes="jun">JUN</button>
+                                        <button class="btn-mes" id="btn-mes-jul" data-mes="jul">JUL</button>
+                                        <button class="btn-mes" id="btn-mes-ago" data-mes="ago">AGO</button>
+                                        <button class="btn-mes" id="btn-mes-sep" data-mes="sep">SEP</button>
+                                        <button class="btn-mes active" id="btn-mes-oct-nov"
+                                            data-mes="oct-nov">OCT-NOV</button>
+                                    </div>
+
+                                    <!-- Gráfico con escala vertical -->
+                                    <div class="grafico-contenedor">
+                                        <!-- Escala vertical -->
+                                        <div class="escala-vertical">
+                                            <span class="etiqueta-escala">10 GB</span>
+                                            <span class="etiqueta-escala">5 GB</span>
+                                            <span class="etiqueta-escala">0 GB</span>
                                         </div>
-                                        <div class="chart-labels">
-                                            <span>ABR</span><span>MAY</span><span>JUN</span><span>JUL</span><span>AGO</span><span>SEP</span><span
-                                                class="active">OCT-NOV</span>
+
+                                        <!-- Área de barras -->
+                                        <div class="area-barras">
+                                            <!-- Tooltip (oculto por defecto) -->
+                                            <div class="tooltip-consumo" id="tooltip-consumo">
+                                                <div class="tooltip-header" id="tooltip-fecha"></div>
+                                                <div class="tooltip-row">
+                                                    <span class="dot"></span>
+                                                    <span class="tooltip-label">Global priority</span>
+                                                    <span class="tooltip-value" id="tooltip-valor"></span>
+                                                </div>
+                                            </div>
+
+                                            <!-- Contenedor de barras (generado dinámicamente) -->
+                                            <div class="barras-consumo" id="barras-consumo"></div>
+
+                                            <!-- Etiquetas de días (generadas dinámicamente) -->
+                                            <div class="etiquetas-dias" id="etiquetas-dias"></div>
                                         </div>
                                     </div>
 
@@ -222,32 +250,140 @@
                                         <div class="graph-card">
                                             <div class="graph-header">Rendimiento de descarga</div>
                                             <div class="graph-stats">Min 10 Kbps - Max 596 Kbps - Último 20 Kbps</div>
-                                            <div class="graph-visual"></div> <!-- CSS Graph -->
+                                            <div class="graph-container">
+                                                <div class="graph-y-axis">
+                                                    <span class="y-label">400 Kbps</span>
+                                                    <span class="y-label">200 Kbps</span>
+                                                    <span class="y-label">0 Kbps</span>
+                                                </div>
+                                                <div class="graph-area">
+                                                    <div class="graph-visual"></div>
+                                                    <div class="graph-baseline"></div>
+                                                    <div class="graph-x-axis">
+                                                        <span class="x-label">10:56 AM</span>
+                                                        <span class="x-label">11:03 AM</span>
+                                                        <span class="x-label">11:04 AM</span>
+                                                        <span class="x-label">11:05 AM</span>
+                                                        <span class="x-label">11:06 AM</span>
+                                                        <span class="x-label">11:08 AM</span>
+                                                        <span class="x-label">11:10 AM</span>
+                                                        <span class="x-label">11:12 AM</span>
+                                                        <span class="x-label">11:15 AM</span>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </div>
                                         <div class="graph-card">
                                             <div class="graph-header">Rendimiento de carga</div>
                                             <div class="graph-stats">Min 3 Kbps - Max 150 Kbps - Último 4 Kbps</div>
-                                            <div class="graph-visual"></div>
+                                            <div class="graph-container">
+                                                <div class="graph-y-axis">
+                                                    <span class="y-label">150 Kbps</span>
+                                                    <span class="y-label">50 Kbps</span>
+                                                    <span class="y-label">0 Kbps</span>
+                                                </div>
+                                                <div class="graph-area">
+                                                    <div class="graph-visual"></div>
+                                                    <div class="graph-baseline"></div>
+                                                    <div class="graph-x-axis">
+                                                        <span class="x-label">10:56 AM</span>
+                                                        <span class="x-label">11:03 AM</span>
+                                                        <span class="x-label">11:04 AM</span>
+                                                        <span class="x-label">11:05 AM</span>
+                                                        <span class="x-label">11:06 AM</span>
+                                                        <span class="x-label">11:08 AM</span>
+                                                        <span class="x-label">11:10 AM</span>
+                                                        <span class="x-label">11:12 AM</span>
+                                                        <span class="x-label">11:15 AM</span>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </div>
                                         <div class="graph-card">
                                             <div class="graph-header">Latencia</div>
                                             <div class="graph-stats">Min 20ms - Max 82ms - Último 25ms</div>
-                                            <div class="graph-visual"></div>
+                                            <div class="graph-container">
+                                                <div class="graph-y-axis">
+                                                    <span class="y-label">80 Kbps</span>
+                                                    <span class="y-label">40 Kbps</span>
+                                                    <span class="y-label">0 Kbps</span>
+                                                </div>
+                                                <div class="graph-area">
+                                                    <div class="graph-visual"></div>
+                                                    <div class="graph-baseline"></div>
+                                                    <div class="graph-x-axis">
+                                                        <span class="x-label">10:56 AM</span>
+                                                        <span class="x-label">11:00 AM</span>
+                                                        <span class="x-label">11:03 AM</span>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </div>
                                         <div class="graph-card">
                                             <div class="graph-header">Tasa de pérdida de ping</div>
                                             <div class="graph-stats">Min 0% - Max 1% - Último 0%</div>
-                                            <div class="graph-visual"></div>
+                                            <div class="graph-container">
+                                                <div class="graph-y-axis">
+                                                    <span class="y-label">100%</span>
+                                                    <span class="y-label">50%</span>
+                                                    <span class="y-label">0%</span>
+                                                </div>
+                                                <div class="graph-area">
+                                                    <div class="graph-visual"></div>
+                                                    <div class="graph-baseline"></div>
+                                                    <div class="graph-x-axis">
+                                                        <span class="x-label">10:56 AM</span>
+                                                        <span class="x-label">11:00 AM</span>
+                                                        <span class="x-label">11:02 AM</span>
+                                                        <span class="x-label">11:04 AM</span>
+                                                        <span class="x-label">11:06 AM</span>
+                                                        <span class="x-label">11:08 AM</span>
+                                                        <span class="x-label">11:10 AM</span>
+                                                        <span class="x-label">11:12 AM</span>
+                                                        <span class="x-label">11:15 AM</span>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </div>
                                         <div class="graph-card">
                                             <div class="graph-header">Caídas de señal</div>
                                             <div class="graph-stats">Min 88% - Max 100% - Último 100%</div>
-                                            <div class="graph-visual"></div>
+                                            <div class="graph-container">
+                                                <div class="graph-y-axis">
+                                                    <span class="y-label">100%</span>
+                                                    <span class="y-label">50%</span>
+                                                    <span class="y-label">0%</span>
+                                                </div>
+                                                <div class="graph-area">
+                                                    <div class="graph-visual"></div>
+                                                    <div class="graph-baseline"></div>
+                                                    <div class="graph-x-axis">
+                                                        <span class="x-label">10:58 AM</span>
+                                                        <span class="x-label">11:00 AM</span>
+                                                        <span class="x-label">11:03 AM</span>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </div>
                                         <div class="graph-card">
                                             <div class="graph-header">Obstrucción</div>
                                             <div class="graph-stats">Min 0.14% - Max 0.142% - Último 0.14%</div>
-                                            <div class="graph-visual"></div>
+                                            <div class="graph-container">
+                                                <div class="graph-y-axis">
+                                                    <span class="y-label">1%</span>
+                                                    <span class="y-label">0.5%</span>
+                                                    <span class="y-label">0%</span>
+                                                </div>
+                                                <div class="graph-area">
+                                                    <div class="graph-visual"></div>
+                                                    <div class="graph-baseline"></div>
+                                                    <div class="graph-x-axis">
+                                                        <span class="x-label">10:58 AM</span>
+                                                        <span class="x-label">11:00 AM</span>
+                                                        <span class="x-label">11:03 AM</span>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
