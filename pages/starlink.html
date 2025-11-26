@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Comsatel - Starlink</title>
+    <link rel="stylesheet" href="../css/styles.css">
+</head>
+
+<body class="dashboard-body">
+    <img src="../assets/imgs/bg.avif" alt="Background" class="bg-image">
+
+    <header class="dashboard-header">
+        <!-- Home icon moved to sidebar -->
+        <div class="user-profile" id="userProfileBtn">
+            <div class="user-info">
+                <img src="../assets/icons/icon-user.svg" alt="User" class="user-icon">
+                <span>Kevin Briones</span>
+            </div>
+            <img src="../assets/icons/icon-arrow-down.svg" alt="More" class="arrow-icon"
+                onclick="toggleUserMenu(event)">
+        </div>
+        <!-- User Menu Overlay -->
+        <div class="user-menu-container" id="userMenu">
+            <div class="user-menu-row">
+                <div class="menu-input-group">
+                    <label>Correo:</label>
+                    <input type="email" value="correo@mail.com" class="menu-input">
+                </div>
+                <div class="menu-input-group">
+                    <label>Nombre de Empresa:</label>
+                    <input type="text" value="Nivek" class="menu-input">
+                </div>
+                <a href="change_password_internal.html" class="menu-link">Cambio de clave</a>
+                <button class="menu-link-btn" onclick="logout()">Cerrar Sesión</button>
+            </div>
+        </div>
+    </header>
+
+
+    <script src="../js/index.js"></script>
+
+    <div class="dashboard-container">
+        <aside class="dashboard-sidebar">
+            <a href="dashboard.html" class="home-link">
+                <img src="../assets/icons/icon-home-filled.svg" alt="Home" class="home-icon">
+            </a>
+            <a href="dashboard.html" class="back-link">
+                <img src="../assets/icons/icon-arrow-left.svg" alt="Back" class="back-icon">
+                Regresar
+            </a>
+        </aside>
+
+        <section class="dashboard-content">
+            <main class="dashboard-main starlink-main">
+                <div class="starlink-nav">
+                    <!-- Empty spacer to push alerts to right if needed, or just flex alignment -->
+                    <div class="alerts-summary">
+                        <div class="summary-text">
+                            Suscripciones: <span class="status-active">7 Activas</span> <span class="status-ending">1
+                                Finalizando</span> <span class="status-inactive">1 Inactiva</span>
+                        </div>
+                        <div class="alerts-count">
+                            Alertas Activas <img src="../assets/icons/Frame.svg" alt="Alert" class="alert-icon"> 3
+                        </div>
+                    </div>
+                </div>
+
+                <div class="starlink-header">
+                    <h2 class="section-title" style="margin-bottom: 0;">Suscripciones Starlink</h2>
+                    <span class="total-subs">8 Suscripciones</span>
+                </div>
+
+                <div class="subscriptions-table-container">
+                    <table class="subscriptions-table">
+                        <thead>
+                            <tr>
+                                <th>SUSCRIPCIÓN</th>
+                                <th>LINEA DE SERVICIO</th>
+                                <th>ALERTAS ACTIVAS</th>
+                                <th>ESTADO</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Nombre de la suscripción</td>
+                                <td>SL-2152144-76226-67</td>
+                                <td>2 <img src="../assets/icons/Frame.svg" alt="Alert" class="alert-icon-small"></td>
+                                <td>
+                                    <div class="status-badge active">Activa <span class="dot"></span></div>
+                                </td>
+                                <td><img src="../assets/icons/icon-circle-arrow-right.svg" alt="Go" class="action-icon">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Nombre de la suscripción</td>
+                                <td>SL-2152144-76226-67</td>
+                                <td>0 <img src="../assets/icons/Frame.svg" alt="Alert" class="alert-icon-small"></td>
+                                <td>
+                                    <div class="status-badge active">Activa <span class="dot"></span></div>
+                                </td>
+                                <td><img src="../assets/icons/icon-circle-arrow-right.svg" alt="Go" class="action-icon">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Nombre de la suscripción</td>
+                                <td>SL-2152144-76226-67</td>
+                                <td>0 <img src="../assets/icons/Frame.svg" alt="Alert" class="alert-icon-small"></td>
+                                <td>
+                                    <div class="status-badge ending">Finalizando <span class="dot"></span></div>
+                                </td>
+                                <td><img src="../assets/icons/icon-circle-arrow-right.svg" alt="Go" class="action-icon">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Nombre de la suscripción</td>
+                                <td>SL-2152144-76226-67</td>
+                                <td>1 <img src="../assets/icons/Frame.svg" alt="Alert" class="alert-icon-small"></td>
+                                <td>
+                                    <div class="status-badge active">Activa <span class="dot"></span></div>
+                                </td>
+                                <td><img src="../assets/icons/icon-circle-arrow-right.svg" alt="Go" class="action-icon">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Nombre de la suscripción</td>
+                                <td>SL-2152144-76226-67</td>
+                                <td>0 <img src="../assets/icons/Frame.svg" alt="Alert" class="alert-icon-small"></td>
+                                <td>
+                                    <div class="status-badge inactive">Inactivo <span class="dot"></span></div>
+                                </td>
+                                <td><img src="../assets/icons/icon-circle-arrow-right.svg" alt="Go" class="action-icon">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Nombre de la suscripción</td>
+                                <td>SL-2152144-76226-67</td>
+                                <td>0 <img src="../assets/icons/Frame.svg" alt="Alert" class="alert-icon-small"></td>
+                                <td>
+                                    <div class="status-badge active">Activa <span class="dot"></span></div>
+                                </td>
+                                <td><img src="../assets/icons/icon-circle-arrow-right.svg" alt="Go" class="action-icon">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Nombre de la suscripción</td>
+                                <td>SL-2152144-76226-67</td>
+                                <td>0 <img src="../assets/icons/Frame.svg" alt="Alert" class="alert-icon-small"></td>
+                                <td>
+                                    <div class="status-badge active">Activa <span class="dot"></span></div>
+                                </td>
+                                <td><img src="../assets/icons/icon-circle-arrow-right.svg" alt="Go" class="action-icon">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Nombre de la suscripción</td>
+                                <td>SL-2152144-76226-67</td>
+                                <td>0 <img src="../assets/icons/Frame.svg" alt="Alert" class="alert-icon-small"></td>
+                                <td>
+                                    <div class="status-badge active">Activa <span class="dot"></span></div>
+                                </td>
+                                <td><img src="../assets/icons/icon-circle-arrow-right.svg" alt="Go" class="action-icon">
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </main>
+        </section>
+    </div>
+
+    <footer class="dashboard-footer">
+        <img src="../assets/imgs/logo-white.svg" alt="Comsatel Logo" class="footer-logo">
+        <span class="footer-text">COMSATEL</span>
+    </footer>
+
+</body>
+
+</html>

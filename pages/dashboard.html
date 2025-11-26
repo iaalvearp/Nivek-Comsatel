@@ -6,35 +6,68 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Comsatel - Dashboard</title>
     <link rel="stylesheet" href="../css/styles.css">
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
 </head>
 
 <body class="dashboard-body">
+    <img src="../assets/imgs/bg.avif" alt="Background" class="bg-image">
 
     <header class="dashboard-header">
-        <div class="header-left">
-            <img src="../assets/icons/icon-home-filled.svg" alt="Home" class="home-icon">
-        </div>
-        <div class="user-profile">
+        <!-- Home icon moved to sidebar -->
+        <div class="user-profile" id="userProfileBtn">
             <div class="user-info">
                 <img src="../assets/icons/icon-user.svg" alt="User" class="user-icon">
                 <span>Kevin Briones</span>
             </div>
-            <img src="../assets/icons/icon-arrow-down.svg" alt="More" class="arrow-icon">
+            <img src="../assets/icons/icon-arrow-down.svg" alt="More" class="arrow-icon"
+                onclick="toggleUserMenu(event)">
+        </div>
+        <div class="user-menu-container" id="userMenu">
+            <div class="user-menu-row">
+                <div class="menu-input-group">
+                    <label>Correo:</label>
+                    <input type="email" value="correo@mail.com" class="menu-input">
+                </div>
+                <div class="menu-input-group">
+                    <label>Nombre de Empresa:</label>
+                    <input type="text" value="Nivek" class="menu-input">
+                </div>
+                <a href="change_password_internal.html" class="menu-link">Cambio de clave</a>
+                <button class="menu-link-btn" onclick="logout()">Cerrar Sesión</button>
+            </div>
         </div>
     </header>
 
-    <main class="dashboard-main">
-        <h2 class="section-title">Mis servicios</h2>
+    <!-- User Menu Overlay -->
 
-        <div class="services-grid">
-            <!-- Starlink Service Card -->
-            <article class="service-card">
-                <div class="service-logo">STARLINK</div>
-                <button class="service-btn">Ingresar</button>
-            </article>
-        </div>
-    </main>
+    <script src="../js/index.js"></script>
+
+    <div class="dashboard-container">
+        <aside class="dashboard-sidebar">
+            <a href="dashboard.html" class="home-link">
+                <img src="../assets/icons/icon-home-filled.svg" alt="Home" class="home-icon">
+            </a>
+            <!-- Sidebar content (e.g. navigation) -->
+            <!-- <a href="../index.html" class="back-link" onclick="return confirm('¿Cerrar sesión?');">
+                <img src="../assets/icons/icon-arrow-left.svg" alt="Back" class="back-icon">
+                Salir
+            </a> -->
+        </aside>
+
+        <section class="dashboard-content">
+            <main class="dashboard-main">
+                <h2 class="section-title">Mis servicios</h2>
+
+                <div class="services-grid">
+                    <!-- Starlink Service Card -->
+                    <article class="service-card">
+                        <div class="service-logo">STARLINK</div>
+                        <a href="starlink.html" class="service-btn"
+                            style="text-align: center; text-decoration: none; display: block;">Ingresar</a>
+                    </article>
+                </div>
+            </main>
+        </section>
+    </div>
 
     <footer class="dashboard-footer">
         <img src="../assets/imgs/logo-white.svg" alt="Comsatel Logo" class="footer-logo">

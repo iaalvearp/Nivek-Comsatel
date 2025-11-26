@@ -1,3 +1,24 @@
+@font-face {
+    font-family: 'Muli';
+    src: url('../assets/fonts/Muli-Regular.ttf') format('truetype');
+    font-weight: 400;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Muli';
+    src: url('../assets/fonts/Muli-Bold.ttf') format('truetype');
+    font-weight: 700;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Muli';
+    src: url('../assets/fonts/Muli-ExtraLight.ttf') format('truetype');
+    font-weight: 200;
+    font-style: normal;
+}
+
 :root {
     --bg-white: #ffffff;
     --primary-gradient: linear-gradient(180deg, #3a506b 0%, #1c2e4a 100%);
@@ -5,7 +26,7 @@
     --accent-cyan: #00d2ff;
     /* Color del botón Ingresar */
     --text-white: #ffffff;
-    --input-border: rgba(255, 255, 255, 0.5);
+    --input-border: rgba(255, 255, 255, 0.8);
 }
 
 * {
@@ -15,75 +36,74 @@
 }
 
 body {
-    font-family: 'Montserrat', sans-serif;
-    background-image: url('../assets/bg.avif');
-    background-size: cover;
-    background-position: center;
-    background-attachment: fixed;
-    background-repeat: no-repeat;
-    height: 100vh;
+    font-family: 'Muli', sans-serif;
+    min-height: 100dvh;
+    width: 100%;
+    max-width: 1280px;
     display: flex;
     justify-content: center;
     align-items: center;
-    margin: 0;
+    margin: 0 auto;
+    position: relative;
+}
+
+.bg-image {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: -1;
 }
 
 /* Contenedor principal simulando móvil */
 .login-wrapper {
     width: 100%;
-    max-width: 400px;
-    /* Reduced width to match design */
-    /* height: auto; Removed fixed height to fit content */
-    background-color: transparent;
-    /* Transparent to show rounded corners properly */
+    max-width: 20rem;
+    background-color: white;
     display: flex;
     flex-direction: column;
-    border-radius: 30px;
-    /* Rounded corners for the whole card */
+    border-radius: 2rem;
     overflow: hidden;
-    /* Clip content to border radius */
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
 }
 
 /* Header con Logo */
 .brand-header {
     flex: 1;
-    /* Ocupa el espacio superior */
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 20px;
+    padding: 1rem;
     background-color: white;
 }
 
 .logo {
-    max-width: 180px;
+    max-width: 10rem;
     height: auto;
 }
 
 /* Tarjeta Inferior Azul */
-/* Tarjeta Inferior Azul */
 .login-card {
-    /* flex: 2; Removed flex to allow auto height */
     background: linear-gradient(180deg, rgba(68, 96, 117, 0.9) 0%, rgba(22, 33, 62, 0.95) 100%);
-    /* Added transparency */
-    border-top-left-radius: 30px;
-    border-top-right-radius: 30px;
+    margin: 0 .5rem .5rem .5rem;
+    border-radius: 1.75rem;
     padding: 40px 30px;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     color: var(--text-white);
-    /* Backdrop filter for glassmorphism effect if supported */
     backdrop-filter: blur(5px);
+    position: relative;
+    z-index: 1;
 }
 
 .welcome-title {
     font-weight: 400;
-    margin-bottom: 30px;
+    margin-bottom: 1.25rem;
     font-size: 1.5rem;
-    letter-spacing: 1px;
 }
 
 .login-form {
@@ -120,7 +140,10 @@ body {
     left: 15px;
     top: 50%;
     transform: translateY(-50%);
-    color: rgba(255, 255, 255, 0.7);
+    color: rgba(255, 255, 255, 1);
+    font-size: 0.875rem;
+    letter-spacing: 1px;
+    font-weight: 600;
     pointer-events: none;
     transition: 0.3s ease;
 }
@@ -204,7 +227,7 @@ body {
 .recovery-card {
     border-radius: 30px;
     /* Full rounded card */
-    border: 1px solid rgba(255, 255, 255, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.5);
     background: linear-gradient(180deg, rgba(22, 33, 62, 0.8) 0%, rgba(22, 33, 62, 0.9) 100%);
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
 }
@@ -238,11 +261,27 @@ body {
 }
 
 .dashboard-header {
+    position: sticky;
+    margin: 0 0 0 auto;
+    top: 0;
+    left: 10rem;
+    width: calc(100% - 10rem);
+    /* Remaining width */
+    height: 100px;
+    /* Fixed height */
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-end;
+    /* Align content to the right */
+    gap: 1.5rem;
     align-items: center;
-    padding: 20px 40px;
-    /* background: rgba(0, 0, 0, 0.2); Optional header background */
+    padding: 0 40px;
+    /* Vertical padding handled by height alignment */
+    z-index: 1000;
+    background: rgba(10, 25, 47, 0.4);
+    backdrop-filter: blur(8px);
+    /* Keep transparent as per design, or add background if needed */
+    overflow: visible;
+    /* Ensure absolute children are visible */
 }
 
 .home-icon {
@@ -255,13 +294,11 @@ body {
     display: flex;
     align-items: center;
     gap: 10px;
-    border: 1px solid rgba(255, 255, 255, 0.3);
-    border-radius: 30px;
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    border-radius: 12px;
     padding: 10px 20px;
     background: rgba(255, 255, 255, 0.05);
     width: 100%;
-    max-width: 600px;
-    /* Search bar style width */
     justify-content: space-between;
 }
 
@@ -279,15 +316,18 @@ body {
 }
 
 .arrow-icon {
-    width: 16px;
-    height: 16px;
+    padding: .25rem;
+    width: 28px;
+    height: 28px;
+    cursor: pointer;
+    transition: transform 0.3s ease;
 }
 
-.dashboard-main {
-    padding: 40px;
-    max-width: 1200px;
-    margin: 0 auto;
+.arrow-icon.rotate-180 {
+    transform: rotate(180deg);
 }
+
+/* .dashboard-main is now defined in the layout section */
 
 .section-title {
     color: rgba(255, 255, 255, 0.8);
@@ -304,7 +344,7 @@ body {
 
 .service-card {
     background: linear-gradient(180deg, rgba(22, 33, 62, 0.8) 0%, rgba(22, 33, 62, 0.9) 100%);
-    border: 1px solid rgba(255, 255, 255, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.8);
     border-radius: 20px;
     padding: 40px 20px;
     display: flex;
@@ -321,9 +361,9 @@ body {
 
 .service-logo {
     color: white;
-    font-size: 1.5rem;
+    font-size: 2rem;
     font-weight: 700;
-    letter-spacing: 2px;
+    letter-spacing: 5px;
     text-transform: uppercase;
     margin-top: 20px;
 }
@@ -334,8 +374,9 @@ body {
     padding: 10px;
     border-radius: 10px;
     background-color: var(--accent-cyan);
-    color: white;
+    color: rgba(0, 15, 35, 1);
     border: none;
+    font-size: .875rem;
     font-weight: 600;
     cursor: pointer;
     transition: background 0.3s;
@@ -367,4 +408,399 @@ body {
     font-size: 0.7rem;
     letter-spacing: 1px;
     font-weight: 600;
+}
+
+/* User Menu Styles */
+.user-menu-container {
+    position: absolute;
+    top: 100%;
+    /* Full width of header */
+    left: 0;
+    right: 0;
+    background: rgba(22, 33, 62, 0.95);
+    border: none;
+    /* No border */
+    border-radius: 12px;
+    padding: 20px;
+    backdrop-filter: blur(10px);
+    z-index: 1100;
+    width: 100%;
+    border: 1px solid rgba(255, 255, 255, .8);
+    min-width: 300px;
+    margin: 10px auto 0;
+    max-width: 1280px;
+    /* Slight gap and centering */
+
+    /* Animation properties */
+    opacity: 0;
+    transform: translateY(-.25rem);
+    visibility: hidden;
+    transition: opacity 0.3s ease, transform 0.3s ease, visibility 0.3s;
+    width: calc(100% - 5rem);
+}
+
+.user-menu-container.active {
+    opacity: 1;
+    position: absolute;
+    transform: translateY(0);
+    visibility: visible;
+    max-width: 1280px;
+    z-index: 2000;
+    margin: 0 auto;
+}
+
+.user-menu-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.menu-input-group {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.menu-input-group label {
+    color: white;
+    font-size: 0.9rem;
+    font-weight: 600;
+}
+
+.menu-input {
+    background: transparent;
+    border: none;
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 0.9rem;
+    font-family: 'Muli', sans-serif;
+    width: 8rem;
+}
+
+.menu-input:focus {
+    outline: none;
+    color: white;
+    border-bottom: 1px solid var(--accent-cyan);
+}
+
+.menu-link {
+    color: white;
+    text-decoration: none;
+    font-size: 0.9rem;
+    transition: color 0.3s;
+}
+
+.menu-link:hover {
+    color: var(--accent-cyan);
+}
+
+.menu-link-btn {
+    background: transparent;
+    border: none;
+    color: white;
+    font-size: 0.9rem;
+    cursor: pointer;
+    font-family: 'Muli', sans-serif;
+    transition: color 0.3s;
+}
+
+.menu-link-btn:hover {
+    color: var(--accent-cyan);
+}
+
+/* Dashboard Layout Grid */
+.dashboard-container {
+    display: flex;
+    width: 100%;
+    min-height: 100vh;
+    padding-top: 5rem;
+    /* Header height */
+    padding-bottom: 80px;
+    /* Footer height */
+}
+
+.dashboard-sidebar {
+    width: 10rem;
+    /* Fixed sidebar width 10rem */
+    position: fixed;
+    top: 0;
+    /* Starts from top */
+    left: 0;
+    height: calc(100vh - 80px);
+    /* Full height minus footer */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 40px;
+    z-index: 1100;
+    /* Above header if needed, but header starts after it */
+    background: transparent;
+    /* Transparent background */
+    border-right: none;
+    /* No border */
+}
+
+.home-link {
+    margin-bottom: 40px;
+    /* Space between home icon and other items */
+    display: block;
+}
+
+.home-icon {
+    width: 32px;
+    /* Slightly larger for sidebar */
+    height: 32px;
+    cursor: pointer;
+}
+
+.dashboard-content {
+    margin-left: 10rem;
+    /* Sidebar width */
+    width: calc(100% - 10rem);
+    display: flex;
+    justify-content: center;
+    padding: 20px;
+}
+
+.dashboard-main {
+    width: 100%;
+    max-width: 1280px;
+    /* Max width constraint */
+    padding: 20px;
+}
+
+.user-profile:hover {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+/* Starlink Dashboard Styles */
+.starlink-nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 30px;
+    width: 100%;
+}
+
+.back-link {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: white;
+    text-decoration: none;
+    font-size: 0.9rem;
+    opacity: 0.8;
+    transition: opacity 0.3s;
+    /* Rotate text for vertical sidebar if desired, or keep horizontal */
+    writing-mode: vertical-rl;
+    text-orientation: mixed;
+    transform: rotate(180deg);
+    margin-top: 20px;
+    display: none;
+    /* Hiding sidebar back link for now, reusing top nav back link logic if preferred, but user asked for sidebar space. Let's keep it simple first. */
+}
+
+/* Actually, let's keep the back link in the sidebar simple and horizontal if space permits, or just an icon.
+   But the design shows "Regresar" text. Let's put the back link in the sidebar properly.
+*/
+.dashboard-sidebar .back-link {
+    display: flex;
+    writing-mode: horizontal-tb;
+    transform: none;
+    flex-direction: row;
+    margin-top: 0;
+    color: white;
+    font-size: 0.9rem;
+    align-items: center;
+    gap: 8px;
+    padding-left: 40px;
+    /* Align with home icon (header has 40px padding) */
+    width: 100%;
+    justify-content: flex-start;
+}
+
+.back-link:hover {
+    opacity: 1;
+}
+
+.back-icon {
+    width: 20px;
+    height: 20px;
+}
+
+.alerts-summary {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: rgba(22, 33, 62, 0.95);
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    border-radius: 12px;
+    padding: 16px 24px;
+    width: 100%;
+    /* max-width: 900px;  Removed max-width to fill space */
+    margin-left: 0;
+    /* Reset margin */
+}
+
+.summary-text {
+    color: white;
+    font-size: 0.9rem;
+}
+
+.status-active {
+    color: #4CAF50;
+    margin-left: 5px;
+}
+
+.status-ending {
+    color: #FF9800;
+    margin-left: 5px;
+}
+
+.status-inactive {
+    color: #F44336;
+    margin-left: 5px;
+}
+
+.alerts-count {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: white;
+    font-size: 0.9rem;
+}
+
+.alert-icon {
+    width: 20px;
+    height: 20px;
+}
+
+.starlink-main {
+    padding-top: 0;
+}
+
+.starlink-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin-bottom: 20px;
+}
+
+.total-subs {
+    color: white;
+    font-weight: 600;
+    font-size: 1.1rem;
+}
+
+.subscriptions-table-container {
+    overflow-x: auto;
+}
+
+.subscriptions-table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0 10px;
+}
+
+.dashboard-footer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 80px;
+    /* Fixed height */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 40px;
+    color: rgba(255, 255, 255, 0.6);
+    font-size: 0.8rem;
+    background: rgba(10, 25, 47, 0.9);
+    backdrop-filter: blur(10px);
+    z-index: 1200;
+    /* Topmost */
+    border-top: none;
+    /* No border */
+}
+
+.subscriptions-table th {
+    text-align: left;
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 0.8rem;
+    letter-spacing: 1px;
+    padding: 10px 20px;
+    text-transform: uppercase;
+}
+
+.subscriptions-table td {
+    background: rgba(22, 33, 62, 0.6);
+    padding: 15px 20px;
+    color: white;
+    font-size: 0.9rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    text-align: left;
+}
+
+.subscriptions-table td:first-child {
+    border-top-left-radius: 18px;
+    border-bottom-left-radius: 18px;
+    border-left: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.subscriptions-table td:last-child {
+    border-top-right-radius: 18px;
+    border-bottom-right-radius: 18px;
+    border-right: 1px solid rgba(255, 255, 255, 0.1);
+    text-align: right;
+}
+
+.alert-icon-small {
+    width: 16px;
+    height: 16px;
+    vertical-align: middle;
+    margin-left: 5px;
+}
+
+.status-badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 4px 8px;
+    border-radius: 16px;
+    font-size: 0.8rem;
+    width: 120px;
+    border: 1px solid rgba(255, 255, 255, 0.5);
+}
+
+.status-badge .dot {
+    width: 24px;
+    height: 8px;
+    border-radius: 4px;
+    display: inline-block;
+}
+
+.status-badge.active .dot {
+    background-color: #4CAF50;
+}
+
+.status-badge.ending .dot {
+    background-color: #FF9800;
+}
+
+.status-badge.inactive .dot {
+    background-color: #F44336;
+}
+
+.action-icon {
+    width: 24px;
+    height: 24px;
+    cursor: pointer;
+    opacity: 0.8;
+    transition: opacity 0.3s;
+}
+
+.action-icon:hover {
+    opacity: 1;
 }
