@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Comsatel - Starlink</title>
+    <link rel="stylesheet" href="../css/styles.css">
+</head>
+
+<body class="dashboard-body">
+    <img src="../assets/imgs/bg.avif" alt="Background" class="bg-image">
+
+    <header class="dashboard-header">
+        <!-- Home icon moved to sidebar -->
+        <div class="user-profile" id="userProfileBtn">
+            <div class="user-info">
+                <img src="../assets/icons/icon-user.svg" alt="User" class="user-icon">
+                <span>Kevin Briones</span>
+            </div>
+            <img src="../assets/icons/icon-arrow-down.svg" alt="More" class="arrow-icon"
+                onclick="toggleUserMenu(event)">
+        </div>
+        <!-- User Menu Overlay -->
+        <div class="user-menu-container" id="userMenu">
+            <div class="user-menu-row">
+                <div class="menu-input-group">
+                    <label>Correo:</label>
+                    <input type="email" value="correo@mail.com" class="menu-input">
+                </div>
+                <div class="menu-input-group">
+                    <label>Nombre de Empresa:</label>
+                    <input type="text" value="Nivek" class="menu-input">
+                </div>
+                <a href="change_password_internal.html" class="menu-link">Cambio de clave</a>
+                <button class="menu-link-btn" onclick="logout()">Cerrar Sesión</button>
+            </div>
+        </div>
+    </header>
+
+
+    <script src="../js/index.js"></script>
+
+    <div class="dashboard-container">
+        <aside class="dashboard-sidebar">
+            <a href="dashboard.html" class="home-link">
+                <img src="../assets/icons/icon-home-filled.svg" alt="Home" class="home-icon">
+            </a>
+            <a href="dashboard.html" class="back-link">
+                <img src="../assets/icons/icon-arrow-left.svg" alt="Back" class="back-icon">
+                Regresar
+            </a>
+        </aside>
+
+        <section class="dashboard-content">
+            <main class="dashboard-main starlink-main">
+                <div class="starlink-nav">
+                    <!-- Empty spacer or breadcrumbs if needed -->
+                </div>
+
+                <div class="accordion-container">
+                    <!-- Section 1: Suscripción -->
+                    <div class="accordion-item">
+                        <div class="accordion-header" onclick="toggleAccordion(this)">
+                            <div class="accordion-title">
+                                <span class="accordion-label">Suscripción</span>
+                                <span class="accordion-value">SL-2152144-76226-67</span>
+                            </div>
+                            <img src="../assets/icons/icon-arrow-down.svg" alt="Expand" class="arrow-icon">
+                        </div>
+                        <div class="accordion-content">
+                            <div class="subscription-details">
+                                <div class="detail-row">
+                                    <div class="detail-group">
+                                        <label>APODO</label>
+                                        <div class="detail-value editable">Don antonio logisinsa - pg 50 gb </div>
+                                    </div>
+                                    <div class="detail-group right-align">
+                                        <label>Notificaciones</label>
+                                        <div class="notification-list">
+                                            <div class="notification-item">Notificación 001 - 000 <span
+                                                    class="close-x">×</span></div>
+                                            <div class="notification-item">Notificación 002 - 000 <span
+                                                    class="close-x">×</span></div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="detail-row">
+                                    <div class="detail-card">
+                                        <div class="detail-group">
+                                            <label>PLAN DE SERVICIO <span class="status-text active">Activo <img
+                                                        src="../assets/icons/icon-like.svg" alt="Like"
+                                                        style="width: 16px; vertical-align: middle;"></span></label>
+                                            <div class="detail-value">Suscripción de prioridad global</div>
+                                        </div>
+                                    </div>
+                                    <div class="detail-card">
+                                        <div class="detail-group">
+                                            <label>POLÍTICA DE IP</label>
+                                            <div class="detail-value">IP pública</div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="detail-section">
+                                    <label class="section-title">DATOS</label>
+                                    <div class="detail-card">
+                                        <div class="data-usage-bar-container">
+                                            <div class="data-usage-labels">
+                                                <span>USO DE DATOS MENSUALES</span>
+                                                <span>9.3 GB / 50 GB</span>
+                                            </div>
+                                            <div class="progress-bar">
+                                                <div class="progress-fill" style="width: 18.6%;"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="detail-section detail-card">
+                                    <label>USO TOTAL DE DATOS <span class="highlight-blue">9.3 GB</span></label>
+                                    <div class="chart-placeholder">
+                                        <!-- Placeholder for the bar chart -->
+                                        <div class="chart-bars">
+                                            <div class="chart-bar" style="height: 10%;"></div>
+                                            <div class="chart-bar" style="height: 30%;"></div>
+                                            <div class="chart-bar active" style="height: 60%;"></div>
+                                            <div class="chart-bar" style="height: 20%;"></div>
+                                            <div class="chart-bar" style="height: 10%;"></div>
+                                            <div class="chart-bar" style="height: 5%;"></div>
+                                        </div>
+                                        <div class="chart-labels">
+                                            <span>ABR</span><span>MAY</span><span>JUN</span><span>JUL</span><span>AGO</span><span>SEP</span><span
+                                                class="active">OCT-NOV</span>
+                                        </div>
+                                    </div>
+
+                                    <div class="detail-row bottom-info">
+                                        <div class="info-block">
+                                            <span class="info-label">Prioridad Global</span>
+                                            <div class="info-value-row">
+                                                <span class="main-val">9.3 GB</span> <span class="sub-value">50 GB
+                                                    recurrentes</span>
+                                            </div>
+                                            <div class="info-value-row">
+                                                <span class="main-val">0 GB</span> <span class="sub-value">Recarga de 0
+                                                    GB</span>
+                                            </div>
+                                        </div>
+                                        <div class="info-block">
+                                            <span class="info-label">Otros</span>
+                                            <div class="info-value-row">
+                                                <span class="main-val">0 GB</span> <span
+                                                    class="sub-value">Ilimitada</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Section 2: Dispositivo 1 -->
+                    <div class="accordion-item">
+                        <div class="accordion-header" onclick="toggleAccordion(this)">
+                            <div class="accordion-title">
+                                <span class="accordion-label">Dispositivo 1</span>
+                                <span class="accordion-value">KITP3340</span>
+                            </div>
+                            <img src="../assets/icons/icon-arrow-down.svg" alt="Expand" class="arrow-icon">
+                        </div>
+                        <div class="accordion-content">
+                            <div class="device-details">
+                                <h3 class="device-section-title">Dispositivos <span class="small-text">STARLINK</span>
+                                </h3>
+
+                                <div class="device-info-grid">
+                                    <div class="device-info-item">
+                                        <label>STARLINK</label>
+                                        <div class="value">0100000000-0000000-0008398 HYB</div>
+                                    </div>
+                                    <div class="device-info-item">
+                                        <label>NÚMERO DE SERIE</label>
+                                        <div class="value">HPUNE0000000323443</div>
+                                    </div>
+                                    <div class="device-info-item">
+                                        <label>VERSIÓN DEL SOFTWARE</label>
+                                        <div class="value">2023.10.02.mr64789</div>
+                                    </div>
+                                    <div class="device-info-item">
+                                        <label>NÚMERO DE KIT</label>
+                                        <div class="value">KITP00222979</div>
+                                    </div>
+                                    <div class="device-info-item">
+                                        <label>TIEMPO DE ACTIVIDAD</label>
+                                        <div class="value">8 hours 20 minutes 37 seconds</div>
+                                    </div>
+                                    <div class="device-info-item">
+                                        <label>ÚLTIMA ACTUALIZACIÓN</label>
+                                        <div class="value">10/14/2025, 11:07:57 AM</div>
+                                    </div>
+                                    <div class="device-info-item full-width">
+                                        <label>IP PÚBLICAS</label>
+                                        <div class="value">149.19.163.252</div>
+                                        <div class="value">2803:9810:5367:2800::/56</div>
+                                        <div class="value">2803:9810:5367:2800::/54</div>
+                                    </div>
+                                </div>
+
+                                <div class="performance-section">
+                                    <div class="time-filters">
+                                        <button class="time-btn active">15 minutos</button>
+                                        <button class="time-btn">3 horas</button>
+                                        <button class="time-btn">1 día</button>
+                                        <button class="time-btn">7 días</button>
+                                        <button class="time-btn">30 días</button>
+                                    </div>
+
+                                    <div class="graphs-grid">
+                                        <!-- Mockup graphs -->
+                                        <div class="graph-card">
+                                            <div class="graph-header">Rendimiento de descarga</div>
+                                            <div class="graph-stats">Min 10 Kbps - Max 596 Kbps - Último 20 Kbps</div>
+                                            <div class="graph-visual"></div> <!-- CSS Graph -->
+                                        </div>
+                                        <div class="graph-card">
+                                            <div class="graph-header">Rendimiento de carga</div>
+                                            <div class="graph-stats">Min 3 Kbps - Max 150 Kbps - Último 4 Kbps</div>
+                                            <div class="graph-visual"></div>
+                                        </div>
+                                        <div class="graph-card">
+                                            <div class="graph-header">Latencia</div>
+                                            <div class="graph-stats">Min 20ms - Max 82ms - Último 25ms</div>
+                                            <div class="graph-visual"></div>
+                                        </div>
+                                        <div class="graph-card">
+                                            <div class="graph-header">Tasa de pérdida de ping</div>
+                                            <div class="graph-stats">Min 0% - Max 1% - Último 0%</div>
+                                            <div class="graph-visual"></div>
+                                        </div>
+                                        <div class="graph-card">
+                                            <div class="graph-header">Caídas de señal</div>
+                                            <div class="graph-stats">Min 88% - Max 100% - Último 100%</div>
+                                            <div class="graph-visual"></div>
+                                        </div>
+                                        <div class="graph-card">
+                                            <div class="graph-header">Obstrucción</div>
+                                            <div class="graph-stats">Min 0.14% - Max 0.142% - Último 0.14%</div>
+                                            <div class="graph-visual"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Section 3: Dispositivo 2 -->
+                    <div class="accordion-item">
+                        <div class="accordion-header" onclick="toggleAccordion(this)">
+                            <div class="accordion-title">
+                                <span class="accordion-label">Dispositivo 2</span>
+                                <span class="accordion-value">KITP2120</span>
+                            </div>
+                            <img src="../assets/icons/icon-arrow-down.svg" alt="Expand" class="arrow-icon">
+                        </div>
+                        <div class="accordion-content">
+                            <div class="device-details">
+                                <p style="color: white; padding: 20px;">Información del Dispositivo 2...</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </section>
+    </div>
+
+    <footer class="dashboard-footer">
+        <img src="../assets/imgs/logo-white.svg" alt="Comsatel Logo" class="footer-logo">
+        <span class="footer-text">COMSATEL</span>
+    </footer>
+
+</body>
+
+</html>

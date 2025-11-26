@@ -61,3 +61,20 @@ function showSuccessMessage() {
         messageElement.style.display = 'block';
     }
 }
+/**
+ * Toggles the state of an accordion item.
+ * @param {HTMLElement} headerElement - The header element that was clicked.
+ */
+function toggleAccordion(headerElement) {
+    const item = headerElement.parentElement;
+    const arrow = headerElement.querySelector('.arrow-icon');
+
+    // Toggle active class
+    if (item.classList.contains('active')) {
+        item.classList.remove('active');
+        if (arrow) arrow.classList.remove('rotate-180');
+    } else {
+        item.classList.add('active');
+        if (arrow) arrow.classList.add('rotate-180');
+    }
+}

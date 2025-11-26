@@ -413,7 +413,7 @@ body {
 /* User Menu Styles */
 .user-menu-container {
     position: absolute;
-    top: 100%;
+    top: 84%;
     /* Full width of header */
     left: 0;
     right: 0;
@@ -514,31 +514,23 @@ body {
     display: flex;
     width: 100%;
     min-height: 100vh;
-    padding-top: 5rem;
-    /* Header height */
+    padding-top: 2rem;
     padding-bottom: 80px;
-    /* Footer height */
 }
 
 .dashboard-sidebar {
     width: 10rem;
-    /* Fixed sidebar width 10rem */
     position: fixed;
     top: 0;
-    /* Starts from top */
     left: 0;
     height: calc(100vh - 80px);
-    /* Full height minus footer */
     display: flex;
     flex-direction: column;
     align-items: center;
     padding-top: 40px;
     z-index: 1100;
-    /* Above header if needed, but header starts after it */
     background: transparent;
-    /* Transparent background */
     border-right: none;
-    /* No border */
 }
 
 .home-link {
@@ -579,7 +571,7 @@ body {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    margin-bottom: 30px;
+    margin: 0px;
     width: 100%;
 }
 
@@ -803,4 +795,435 @@ body {
 
 .action-icon:hover {
     opacity: 1;
+}
+
+/* Starlink Detail Accordion Styles */
+.accordion-container {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.accordion-item {
+    background: transparent;
+    /* Removed border and radius from wrapper */
+    transition: all 0.3s ease;
+}
+
+.accordion-item.active {
+    background: transparent;
+    border-color: transparent;
+}
+
+.accordion-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: .25rem;
+    width: 100%;
+    max-width: 332px;
+    padding: .5rem .75rem;
+    cursor: pointer;
+    background: rgba(22, 33, 62, 0.6);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 12px;
+    transition: all 0.3s ease;
+}
+
+.accordion-item.active .accordion-header {
+    border-color: rgba(255, 255, 255, 0.8);
+    background: rgba(22, 33, 62, 0.8);
+}
+
+.accordion-title {
+    display: flex;
+    align-items: baseline;
+    gap: .5rem;
+    color: white;
+}
+
+.accordion-label {
+    font-size: 1.4rem;
+    font-weight: 300;
+    color: rgba(255, 255, 255, 0.9);
+}
+
+.accordion-value {
+    font-size: 0.7rem;
+    /* Smaller font size */
+    color: white;
+    /* Default white when closed */
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transition: color 0.3s ease;
+}
+
+.accordion-item.active .accordion-value {
+    color: var(--accent-cyan);
+    /* Cyan when open */
+}
+
+.accordion-content {
+    display: none;
+    padding: 30px 40px;
+    background: rgba(22, 33, 62, 0.4);
+    /* Background for content */
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 12px;
+    margin-top: 15px;
+    /* Spacing between header and content */
+}
+
+.accordion-item.active .accordion-content {
+    display: block;
+}
+
+/* Subscription Details */
+.subscription-details {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    /* Reduced gap between rows */
+}
+
+.detail-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: stretch;
+    /* Stretch cards to equal height */
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.detail-card {
+    background: rgba(255, 255, 255, 0.03);
+    border-radius: 12px;
+    padding: 25px;
+    flex: 1;
+    min-width: 300px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.detail-group {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.detail-group label,
+.detail-section label {
+    color: rgba(255, 255, 255, 0.6);
+    /* Grey label */
+    font-size: 0.75rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    font-weight: 600;
+    margin-bottom: 5px;
+}
+
+.detail-value {
+    color: var(--accent-cyan);
+    font-size: 1.1rem;
+    font-weight: 500;
+}
+
+.detail-value.editable {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.edit-icon {
+    width: 16px;
+    height: 16px;
+    cursor: pointer;
+    opacity: 0.7;
+}
+
+.right-align {
+    align-items: flex-end;
+    text-align: right;
+}
+
+.notification-list {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    align-items: flex-end;
+}
+
+.notification-item {
+    color: white;
+    /* White text */
+    font-size: 0.85rem;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: transparent;
+    /* No background */
+    padding: 0;
+    /* No padding */
+    border-radius: 4px;
+    cursor: pointer;
+    /* Clickable */
+}
+
+.close-x {
+    cursor: pointer;
+    font-weight: bold;
+    margin-left: 5px;
+    color: #F44336;
+    /* Keep X red */
+}
+
+.status-text.active {
+    color: #4CAF50;
+    margin-left: 10px;
+    text-transform: none;
+    font-size: 0.9rem;
+    vertical-align: middle;
+}
+
+/* Data Usage Bar */
+.data-usage-bar-container {
+    width: 100%;
+    margin-top: 15px;
+    /* Removed background and padding as it's now in a card */
+}
+
+.data-usage-labels {
+    display: flex;
+    justify-content: flex-start;
+    /* Aligned to start */
+    gap: 15px;
+    /* Space between label and value */
+    color: white;
+    font-size: 0.8rem;
+    margin-bottom: 15px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+}
+
+.data-usage-labels span:last-child {
+    color: var(--accent-cyan);
+}
+
+.progress-bar {
+    width: 100%;
+    height: 8px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.progress-fill {
+    height: 100%;
+    background-color: var(--accent-cyan);
+    border-radius: 4px;
+    box-shadow: 0 0 10px rgba(0, 210, 255, 0.5);
+}
+
+/* Chart Placeholder */
+.highlight-blue {
+    color: var(--accent-cyan);
+    margin-left: 10px;
+}
+
+.chart-placeholder {
+    margin-top: 20px;
+    height: 200px;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+}
+
+.chart-bars {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    height: 100%;
+    padding-bottom: 10px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.chart-bar {
+    width: 4px;
+    background-color: rgba(255, 255, 255, 0.2);
+    border-radius: 2px;
+    position: relative;
+}
+
+.chart-bar.active {
+    background-color: var(--accent-cyan);
+    box-shadow: 0 0 10px var(--accent-cyan);
+}
+
+.chart-labels {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 10px;
+    color: rgba(255, 255, 255, 0.4);
+    font-size: 0.7rem;
+}
+
+.chart-labels span.active {
+    color: white;
+    background: rgba(255, 255, 255, 0.1);
+    padding: 2px 8px;
+    border-radius: 10px;
+}
+
+.section-title {
+    color: rgba(255, 255, 255, 0.6);
+    font-size: 0.75rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    font-weight: 600;
+    margin-bottom: 15px;
+    display: block;
+}
+
+.bottom-info {
+    margin-top: 30px;
+    padding-top: 20px;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    display: flex;
+    justify-content: flex-start;
+    /* Align to start */
+    gap: 60px;
+    /* Space between columns */
+}
+
+.info-block {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.info-label {
+    color: var(--accent-cyan);
+    /* Cyan color */
+    font-size: 0.9rem;
+    font-weight: 600;
+    margin-bottom: 5px;
+}
+
+.info-value-row {
+    display: flex;
+    align-items: baseline;
+    gap: 10px;
+}
+
+.main-val {
+    color: white;
+    font-size: 1rem;
+    font-weight: 500;
+}
+
+.sub-value {
+    color: rgba(255, 255, 255, 0.5);
+    font-size: 0.8rem;
+}
+
+/* Device Details */
+.device-section-title {
+    color: white;
+    font-size: 1.5rem;
+    font-weight: 300;
+    margin-bottom: 30px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    padding-bottom: 10px;
+}
+
+.small-text {
+    font-size: 0.8rem;
+    color: rgba(255, 255, 255, 0.5);
+    margin-left: 10px;
+    vertical-align: middle;
+}
+
+.device-info-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 30px;
+    margin-bottom: 40px;
+}
+
+.device-info-item label {
+    display: block;
+    color: rgba(255, 255, 255, 0.5);
+    font-size: 0.7rem;
+    letter-spacing: 1px;
+    margin-bottom: 8px;
+}
+
+.device-info-item .value {
+    color: white;
+    font-size: 0.9rem;
+    font-weight: 500;
+}
+
+.device-info-item.full-width {
+    grid-column: 1 / -1;
+}
+
+/* Performance Section */
+.time-filters {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 30px;
+}
+
+.time-btn {
+    background: rgba(255, 255, 255, 0.05);
+    border: none;
+    color: rgba(255, 255, 255, 0.6);
+    padding: 8px 16px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.time-btn.active,
+.time-btn:hover {
+    background: rgba(255, 255, 255, 0.15);
+    color: white;
+}
+
+.graphs-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 20px;
+}
+
+.graph-card {
+    background: transparent;
+    padding: 20px 0;
+}
+
+.graph-header {
+    color: rgba(255, 255, 255, 0.6);
+    font-size: 0.8rem;
+    margin-bottom: 5px;
+}
+
+.graph-stats {
+    color: white;
+    font-size: 0.85rem;
+    margin-bottom: 15px;
+}
+
+.graph-visual {
+    height: 100px;
+    background: linear-gradient(180deg, rgba(0, 210, 255, 0.2) 0%, rgba(0, 210, 255, 0) 100%);
+    border-bottom: 2px solid var(--accent-cyan);
+    position: relative;
+    /* Simplified graph visual */
+    clip-path: polygon(0 100%, 10% 80%, 20% 60%, 30% 70%, 40% 40%, 50% 50%, 60% 30%, 70% 40%, 80% 20%, 90% 30%, 100% 10%, 100% 100%);
 }
