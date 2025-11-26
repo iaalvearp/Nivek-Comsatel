@@ -20,13 +20,56 @@
 }
 
 :root {
-    --bg-white: #ffffff;
-    --primary-gradient: linear-gradient(180deg, #3a506b 0%, #1c2e4a 100%);
-    /* Ajustado al azul oscuro del PDF */
-    --accent-cyan: #00d2ff;
-    /* Color del botón Ingresar */
-    --text-white: #ffffff;
-    --input-border: rgba(255, 255, 255, 0.8);
+    /* Blancos */
+    --blanco-total: #ffffff;
+    --blanco-08: rgba(255, 255, 255, 0.8);
+    --blanco-06: rgba(255, 255, 255, 0.6);
+    --blanco-04: rgba(255, 255, 255, 0.4);
+    --blanco-02: rgba(255, 255, 255, 0.2);
+    --blanco-016: rgba(255, 255, 255, 0.16);
+    --blanco-006: rgba(255, 255, 255, 0.06);
+    --blanco-004: rgba(255, 255, 255, 0.04);
+
+    /* Azules Primarios (22, 33, 62) */
+    --azul-primario-total: rgb(22, 33, 62);
+    --azul-primario-096: rgba(22, 33, 62, 0.96);
+    --azul-primario-08: rgba(22, 33, 62, 0.8);
+    --azul-primario-06: rgba(22, 33, 62, 0.6);
+    --azul-primario-04: rgba(22, 33, 62, 0.4);
+
+    /* Otros Azules */
+    --azul-oscuro: #1c2e4a;
+    --azul-medio: #3a506b;
+    --azul-grisaceo: #2b3d55;
+    --azul-profundo: rgba(0, 15, 35, 1);
+    --azul-acero-10: rgb(68, 96, 117);
+    --azul-noche-10: rgb(10, 25, 47);
+    --azul-noche-04: rgba(10, 25, 47, 0.4);
+
+    /* Cyan */
+    --cyan-neon: #00d2ff;
+    --cyan-neon-06: rgba(0, 210, 255, 0.6);
+    --cyan-neon-02: rgba(0, 210, 255, 0.2);
+    --cyan-hover: #00b8e6;
+    --cyan-neon-00: rgba(0, 210, 255, 0);
+
+    /* Negro/Sombras */
+    --negro-06: rgba(0, 0, 0, 0.6);
+    --negro-04: rgba(0, 0, 0, 0.4);
+    --negro-02: rgba(0, 0, 0, 0.2);
+
+    /* Estados */
+    --estado-activo: #4CAF50;
+    --estado-finalizando: #FF9800;
+    --estado-inactivo: #F44336;
+    --gris-texto: #555;
+
+    /* Variables Legacy (Mapeadas a las nuevas) */
+    --bg-white: var(--blanco-total);
+    --primary-gradient: linear-gradient(180deg, var(--azul-medio) 0%, var(--azul-oscuro) 100%);
+    --accent-cyan: var(--cyan-neon);
+    --text-white: var(--blanco-total);
+    --input-border: var(--blanco-08);
 }
 
 * {
@@ -61,12 +104,12 @@ body {
 .login-wrapper {
     width: 100%;
     max-width: 20rem;
-    background-color: white;
+    background-color: var(--blanco-total);
     display: flex;
     flex-direction: column;
     border-radius: 2rem;
     overflow: hidden;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 10px 30px var(--negro-04);
 }
 
 /* Header con Logo */
@@ -76,7 +119,7 @@ body {
     justify-content: center;
     align-items: center;
     padding: 1rem;
-    background-color: white;
+    background-color: var(--blanco-total);
 }
 
 .logo {
@@ -86,7 +129,7 @@ body {
 
 /* Tarjeta Inferior Azul */
 .login-card {
-    background: linear-gradient(180deg, rgba(68, 96, 117, 0.9) 0%, rgba(22, 33, 62, 0.95) 100%);
+    background: linear-gradient(180deg, var(--azul-acero-10) 0%, var(--azul-primario-096) 100%);
     margin: 0 .5rem .5rem .5rem;
     border-radius: 1.75rem;
     padding: 40px 30px;
@@ -125,7 +168,7 @@ body {
     background: transparent;
     border: 1px solid var(--input-border);
     border-radius: 15px;
-    color: white;
+    color: var(--blanco-total);
     font-size: 1rem;
     outline: none;
 }
@@ -140,7 +183,7 @@ body {
     left: 15px;
     top: 50%;
     transform: translateY(-50%);
-    color: rgba(255, 255, 255, 1);
+    color: var(--blanco-total);
     font-size: 0.875rem;
     letter-spacing: 1px;
     font-weight: 600;
@@ -153,7 +196,7 @@ body {
 .input-group input:not(:placeholder-shown)+label {
     top: -10px;
     font-size: 0.8rem;
-    background-color: #2b3d55;
+    background-color: var(--azul-grisaceo);
     /* Pequeño parche para tapar la línea si quieres */
     padding: 0 5px;
     display: none;
@@ -179,7 +222,7 @@ body {
 /* Botón Ingresar */
 .btn-primary {
     background-color: var(--accent-cyan);
-    color: white;
+    color: var(--blanco-total);
     border: none;
     padding: 15px;
     border-radius: 15px;
@@ -191,13 +234,13 @@ body {
 }
 
 .btn-primary:hover {
-    background-color: #00b8e6;
+    background-color: var(--cyan-hover);
 }
 
 /* Link Olvidé contraseña */
 .forgot-password {
     margin-top: 20px;
-    color: rgba(255, 255, 255, 0.8);
+    color: var(--blanco-08);
     text-decoration: none;
     font-size: 0.9rem;
 }
@@ -208,7 +251,7 @@ body {
 
 /* Page Title outside card */
 .page-title {
-    color: rgba(255, 255, 255, 0.8);
+    color: var(--blanco-08);
     text-align: center;
     margin-bottom: 20px;
     font-weight: 300;
@@ -227,29 +270,29 @@ body {
 .recovery-card {
     border-radius: 30px;
     /* Full rounded card */
-    border: 1px solid rgba(255, 255, 255, 0.5);
-    background: linear-gradient(180deg, rgba(22, 33, 62, 0.8) 0%, rgba(22, 33, 62, 0.9) 100%);
-    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+    border: 1px solid var(--blanco-06);
+    background: linear-gradient(180deg, var(--azul-primario-08) 0%, var(--azul-primario-total) 100%);
+    box-shadow: 0 0 20px var(--negro-06);
 }
 
 .card-subtitle {
     font-size: 0.9rem;
     margin-bottom: 20px;
-    color: rgba(255, 255, 255, 0.8);
+    color: var(--blanco-08);
     font-weight: 400;
 }
 
 /* Message box below card */
 .recovery-message {
-    background-color: white;
+    background-color: var(--blanco-total);
     padding: 20px;
     margin-top: 40px;
     max-width: 400px;
     text-align: center;
-    color: #555;
+    color: var(--gris-texto);
     font-size: 0.9rem;
     line-height: 1.5;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 5px 15px var(--negro-02);
 }
 
 /* Dashboard Styles */
@@ -277,7 +320,7 @@ body {
     padding: 0 40px;
     /* Vertical padding handled by height alignment */
     z-index: 1000;
-    background: rgba(10, 25, 47, 0.4);
+    background: var(--azul-noche-04);
     backdrop-filter: blur(8px);
     /* Keep transparent as per design, or add background if needed */
     overflow: visible;
@@ -294,10 +337,10 @@ body {
     display: flex;
     align-items: center;
     gap: 10px;
-    border: 1px solid rgba(255, 255, 255, 0.5);
+    border: 1px solid var(--blanco-06);
     border-radius: 12px;
     padding: 10px 20px;
-    background: rgba(255, 255, 255, 0.05);
+    background: var(--blanco-006);
     width: 100%;
     justify-content: space-between;
 }
@@ -306,7 +349,7 @@ body {
     display: flex;
     align-items: center;
     gap: 10px;
-    color: white;
+    color: var(--blanco-total);
     font-size: 0.9rem;
 }
 
@@ -330,7 +373,7 @@ body {
 /* .dashboard-main is now defined in the layout section */
 
 .section-title {
-    color: rgba(255, 255, 255, 0.8);
+    color: var(--blanco-08);
     font-weight: 300;
     font-size: 1.5rem;
     margin-bottom: 30px;
@@ -343,8 +386,8 @@ body {
 }
 
 .service-card {
-    background: linear-gradient(180deg, rgba(22, 33, 62, 0.8) 0%, rgba(22, 33, 62, 0.9) 100%);
-    border: 1px solid rgba(255, 255, 255, 0.8);
+    background: linear-gradient(180deg, var(--azul-primario-08) 0%, var(--azul-primario-total) 100%);
+    border: 1px solid var(--blanco-08);
     border-radius: 20px;
     padding: 40px 20px;
     display: flex;
@@ -360,7 +403,7 @@ body {
 }
 
 .service-logo {
-    color: white;
+    color: var(--blanco-total);
     font-size: 2rem;
     font-weight: 700;
     letter-spacing: 5px;
@@ -374,7 +417,7 @@ body {
     padding: 10px;
     border-radius: 10px;
     background-color: var(--accent-cyan);
-    color: rgba(0, 15, 35, 1);
+    color: var(--azul-profundo);
     border: none;
     font-size: .875rem;
     font-weight: 600;
@@ -383,7 +426,7 @@ body {
 }
 
 .service-btn:hover {
-    background-color: #00b8e6;
+    background-color: var(--cyan-hover);
 }
 
 .dashboard-footer {
@@ -404,7 +447,7 @@ body {
 }
 
 .footer-text {
-    color: white;
+    color: var(--blanco-total);
     font-size: 0.7rem;
     letter-spacing: 1px;
     font-weight: 600;
@@ -417,7 +460,7 @@ body {
     /* Full width of header */
     left: 0;
     right: 0;
-    background: rgba(22, 33, 62, 0.95);
+    background: var(--azul-primario-096);
     border: none;
     /* No border */
     border-radius: 12px;
@@ -425,7 +468,7 @@ body {
     backdrop-filter: blur(10px);
     z-index: 1100;
     width: 100%;
-    border: 1px solid rgba(255, 255, 255, .8);
+    border: 1px solid var(--blanco-08);
     min-width: 300px;
     margin: 10px auto 0;
     max-width: 1280px;
@@ -464,7 +507,7 @@ body {
 }
 
 .menu-input-group label {
-    color: white;
+    color: var(--blanco-total);
     font-size: 0.9rem;
     font-weight: 600;
 }
@@ -472,7 +515,7 @@ body {
 .menu-input {
     background: transparent;
     border: none;
-    color: rgba(255, 255, 255, 0.7);
+    color: var(--blanco-08);
     font-size: 0.9rem;
     font-family: 'Muli', sans-serif;
     width: 8rem;
@@ -480,12 +523,12 @@ body {
 
 .menu-input:focus {
     outline: none;
-    color: white;
+    color: var(--blanco-total);
     border-bottom: 1px solid var(--accent-cyan);
 }
 
 .menu-link {
-    color: white;
+    color: var(--blanco-total);
     text-decoration: none;
     font-size: 0.9rem;
     transition: color 0.3s;
@@ -498,7 +541,7 @@ body {
 .menu-link-btn {
     background: transparent;
     border: none;
-    color: white;
+    color: var(--blanco-total);
     font-size: 0.9rem;
     cursor: pointer;
     font-family: 'Muli', sans-serif;
@@ -563,7 +606,7 @@ body {
 }
 
 .user-profile:hover {
-    background: rgba(255, 255, 255, 0.1);
+    background: var(--blanco-02);
 }
 
 /* Starlink Dashboard Styles */
@@ -579,7 +622,7 @@ body {
     display: flex;
     align-items: center;
     gap: 10px;
-    color: white;
+    color: var(--blanco-total);
     text-decoration: none;
     font-size: 0.9rem;
     opacity: 0.8;
@@ -602,7 +645,7 @@ body {
     transform: none;
     flex-direction: row;
     margin-top: 0;
-    color: white;
+    color: var(--blanco-total);
     font-size: 0.9rem;
     align-items: center;
     gap: 8px;
@@ -625,8 +668,8 @@ body {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    background: rgba(22, 33, 62, 0.95);
-    border: 1px solid rgba(255, 255, 255, 0.5);
+    background: var(--azul-primario-096);
+    border: 1px solid var(--blanco-06);
     border-radius: 12px;
     padding: 16px 24px;
     width: 100%;
@@ -636,22 +679,22 @@ body {
 }
 
 .summary-text {
-    color: white;
+    color: var(--blanco-total);
     font-size: 0.9rem;
 }
 
 .status-active {
-    color: #4CAF50;
+    color: var(--estado-activo);
     margin-left: 5px;
 }
 
 .status-ending {
-    color: #FF9800;
+    color: var(--estado-finalizando);
     margin-left: 5px;
 }
 
 .status-inactive {
-    color: #F44336;
+    color: var(--estado-inactivo);
     margin-left: 5px;
 }
 
@@ -659,7 +702,7 @@ body {
     display: flex;
     align-items: center;
     gap: 10px;
-    color: white;
+    color: var(--blanco-total);
     font-size: 0.9rem;
 }
 
@@ -680,7 +723,7 @@ body {
 }
 
 .total-subs {
-    color: white;
+    color: var(--blanco-total);
     font-weight: 600;
     font-size: 1.1rem;
 }
@@ -706,9 +749,9 @@ body {
     justify-content: space-between;
     align-items: center;
     padding: 0 40px;
-    color: rgba(255, 255, 255, 0.6);
+    color: var(--blanco-06);
     font-size: 0.8rem;
-    background: rgba(10, 25, 47, 0.9);
+    background: var(--azul-noche-10);
     backdrop-filter: blur(10px);
     z-index: 1200;
     /* Topmost */
@@ -718,7 +761,7 @@ body {
 
 .subscriptions-table th {
     text-align: left;
-    color: rgba(255, 255, 255, 0.7);
+    color: var(--blanco-08);
     font-size: 0.8rem;
     letter-spacing: 1px;
     padding: 10px 20px;
@@ -726,25 +769,25 @@ body {
 }
 
 .subscriptions-table td {
-    background: rgba(22, 33, 62, 0.6);
+    background: var(--azul-primario-06);
     padding: 15px 20px;
-    color: white;
+    color: var(--blanco-total);
     font-size: 0.9rem;
-    border-top: 1px solid rgba(255, 255, 255, 0.1);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    border-top: 1px solid var(--blanco-02);
+    border-bottom: 1px solid var(--blanco-02);
     text-align: left;
 }
 
 .subscriptions-table td:first-child {
     border-top-left-radius: 18px;
     border-bottom-left-radius: 18px;
-    border-left: 1px solid rgba(255, 255, 255, 0.1);
+    border-left: 1px solid var(--blanco-02);
 }
 
 .subscriptions-table td:last-child {
     border-top-right-radius: 18px;
     border-bottom-right-radius: 18px;
-    border-right: 1px solid rgba(255, 255, 255, 0.1);
+    border-right: 1px solid var(--blanco-02);
     text-align: right;
 }
 
@@ -763,7 +806,7 @@ body {
     border-radius: 16px;
     font-size: 0.8rem;
     width: 120px;
-    border: 1px solid rgba(255, 255, 255, 0.5);
+    border: 1px solid var(--blanco-06);
 }
 
 .status-badge .dot {
@@ -774,15 +817,15 @@ body {
 }
 
 .status-badge.active .dot {
-    background-color: #4CAF50;
+    background-color: var(--estado-activo);
 }
 
 .status-badge.ending .dot {
-    background-color: #FF9800;
+    background-color: var(--estado-finalizando);
 }
 
 .status-badge.inactive .dot {
-    background-color: #F44336;
+    background-color: var(--estado-inactivo);
 }
 
 .action-icon {
@@ -825,35 +868,35 @@ body {
     max-width: 332px;
     padding: .5rem .75rem;
     cursor: pointer;
-    background: rgba(22, 33, 62, 0.6);
-    border: 1px solid rgba(255, 255, 255, 0.3);
+    background: var(--azul-primario-06);
+    border: 1px solid var(--blanco-04);
     border-radius: 12px;
     transition: all 0.3s ease;
 }
 
 .accordion-item.active .accordion-header {
-    border-color: rgba(255, 255, 255, 0.8);
-    background: rgba(22, 33, 62, 0.8);
+    border-color: var(--blanco-08);
+    background: var(--azul-primario-08);
 }
 
 .accordion-title {
     display: flex;
     align-items: baseline;
     gap: .5rem;
-    color: white;
+    color: var(--blanco-total);
 }
 
 .accordion-label {
     font-size: 1.4rem;
     font-weight: 300;
-    color: rgba(255, 255, 255, 0.9);
+    color: var(--blanco-total);
 }
 
 .accordion-value {
     font-size: 0.7rem;
     /* Smaller font size */
-    color: white;
-    /* Default white when closed */
+    color: var(--blanco-total);
+    /* Default var(--blanco-total) when closed */
     text-transform: uppercase;
     letter-spacing: 1px;
     transition: color 0.3s ease;
@@ -867,9 +910,9 @@ body {
 .accordion-content {
     display: none;
     padding: 30px 40px;
-    background: rgba(22, 33, 62, 0.4);
+    background: var(--azul-primario-04);
     /* Background for content */
-    border: 1px solid rgba(255, 255, 255, 0.3);
+    border: 1px solid var(--blanco-04);
     border-radius: 12px;
     margin-top: 15px;
     /* Spacing between header and content */
@@ -897,7 +940,7 @@ body {
 }
 
 .detail-card {
-    background: rgba(255, 255, 255, 0.03);
+    background: var(--blanco-004);
     border-radius: 12px;
     padding: 25px;
     flex: 1;
@@ -915,7 +958,7 @@ body {
 
 .detail-group label,
 .detail-section label {
-    color: rgba(255, 255, 255, 0.6);
+    color: var(--blanco-06);
     /* Grey label */
     font-size: 0.75rem;
     letter-spacing: 2px;
@@ -956,7 +999,7 @@ body {
 }
 
 .notification-item {
-    color: white;
+    color: var(--blanco-total);
     /* White text */
     font-size: 0.85rem;
     display: flex;
@@ -975,12 +1018,12 @@ body {
     cursor: pointer;
     font-weight: bold;
     margin-left: 5px;
-    color: #F44336;
+    color: var(--estado-inactivo);
     /* Keep X red */
 }
 
 .status-text.active {
-    color: #4CAF50;
+    color: var(--estado-activo);
     margin-left: 10px;
     text-transform: none;
     font-size: 0.9rem;
@@ -1000,7 +1043,7 @@ body {
     /* Aligned to start */
     gap: 15px;
     /* Space between label and value */
-    color: white;
+    color: var(--blanco-total);
     font-size: 0.8rem;
     margin-bottom: 15px;
     font-weight: 600;
@@ -1014,17 +1057,19 @@ body {
 
 .progress-bar {
     width: 100%;
-    height: 8px;
-    background: rgba(255, 255, 255, 0.1);
-    border-radius: 4px;
+    height: 4px;
+    /* Thinner bar */
+    background: var(--blanco-08);
+    /* White background track */
+    border-radius: 2px;
     overflow: hidden;
 }
 
 .progress-fill {
     height: 100%;
     background-color: var(--accent-cyan);
-    border-radius: 4px;
-    box-shadow: 0 0 10px rgba(0, 210, 255, 0.5);
+    border-radius: 2px;
+    box-shadow: 0 0 10px var(--cyan-neon-06);
 }
 
 /* Chart Placeholder */
@@ -1035,11 +1080,56 @@ body {
 
 .chart-placeholder {
     margin-top: 20px;
-    height: 200px;
+    height: 250px;
+    /* Increased height for tooltip space */
     position: relative;
     display: flex;
     flex-direction: column;
     justify-content: flex-end;
+}
+
+.chart-tooltip {
+    position: absolute;
+    top: 0;
+    left: 20%;
+    /* Position roughly where the active bar is */
+    background: var(--azul-primario-08);
+    border: 1px solid var(--blanco-06);
+    border-radius: 12px;
+    padding: 15px 20px;
+    min-width: 200px;
+}
+
+.tooltip-header {
+    color: var(--blanco-total);
+    font-size: 0.9rem;
+    font-weight: 600;
+    margin-bottom: 10px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.tooltip-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 0.9rem;
+}
+
+.tooltip-row .dot {
+    width: 8px;
+    height: 8px;
+    background-color: var(--accent-cyan);
+    border-radius: 50%;
+}
+
+.tooltip-label {
+    color: var(--accent-cyan);
+}
+
+.tooltip-value {
+    color: var(--accent-cyan);
+    margin-left: auto;
 }
 
 .chart-bars {
@@ -1048,38 +1138,47 @@ body {
     align-items: flex-end;
     height: 100%;
     padding-bottom: 10px;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    border-bottom: 1px solid var(--blanco-02);
+    margin-top: 20px;
 }
 
 .chart-bar {
-    width: 4px;
-    background-color: rgba(255, 255, 255, 0.2);
+    width: 6px;
+    background-color: var(--accent-cyan);
+    /* Default cyan */
     border-radius: 2px;
     position: relative;
 }
 
+.chart-bar.tick {
+    height: 8px;
+    /* Small tick */
+    opacity: 0.5;
+}
+
 .chart-bar.active {
     background-color: var(--accent-cyan);
-    box-shadow: 0 0 10px var(--accent-cyan);
+    box-shadow: 0 0 10px var(--cyan-neon-06);
+    opacity: 1;
 }
 
 .chart-labels {
     display: flex;
     justify-content: space-between;
     margin-top: 10px;
-    color: rgba(255, 255, 255, 0.4);
+    color: var(--blanco-04);
     font-size: 0.7rem;
 }
 
 .chart-labels span.active {
-    color: white;
-    background: rgba(255, 255, 255, 0.1);
+    color: var(--blanco-total);
+    background: var(--blanco-02);
     padding: 2px 8px;
     border-radius: 10px;
 }
 
 .section-title {
-    color: rgba(255, 255, 255, 0.6);
+    color: var(--blanco-06);
     font-size: 0.75rem;
     letter-spacing: 2px;
     text-transform: uppercase;
@@ -1091,7 +1190,7 @@ body {
 .bottom-info {
     margin-top: 30px;
     padding-top: 20px;
-    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    border-top: 1px solid var(--blanco-02);
     display: flex;
     justify-content: flex-start;
     /* Align to start */
@@ -1120,29 +1219,29 @@ body {
 }
 
 .main-val {
-    color: white;
+    color: var(--blanco-total);
     font-size: 1rem;
     font-weight: 500;
 }
 
 .sub-value {
-    color: rgba(255, 255, 255, 0.5);
+    color: var(--blanco-06);
     font-size: 0.8rem;
 }
 
 /* Device Details */
 .device-section-title {
-    color: white;
+    color: var(--blanco-total);
     font-size: 1.5rem;
     font-weight: 300;
     margin-bottom: 30px;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    border-bottom: 1px solid var(--blanco-02);
     padding-bottom: 10px;
 }
 
 .small-text {
     font-size: 0.8rem;
-    color: rgba(255, 255, 255, 0.5);
+    color: var(--blanco-06);
     margin-left: 10px;
     vertical-align: middle;
 }
@@ -1156,14 +1255,14 @@ body {
 
 .device-info-item label {
     display: block;
-    color: rgba(255, 255, 255, 0.5);
+    color: var(--blanco-06);
     font-size: 0.7rem;
     letter-spacing: 1px;
     margin-bottom: 8px;
 }
 
 .device-info-item .value {
-    color: white;
+    color: var(--blanco-total);
     font-size: 0.9rem;
     font-weight: 500;
 }
@@ -1180,9 +1279,9 @@ body {
 }
 
 .time-btn {
-    background: rgba(255, 255, 255, 0.05);
+    background: var(--blanco-006);
     border: none;
-    color: rgba(255, 255, 255, 0.6);
+    color: var(--blanco-06);
     padding: 8px 16px;
     border-radius: 20px;
     font-size: 0.8rem;
@@ -1192,8 +1291,8 @@ body {
 
 .time-btn.active,
 .time-btn:hover {
-    background: rgba(255, 255, 255, 0.15);
-    color: white;
+    background: var(--blanco-016);
+    color: var(--blanco-total);
 }
 
 .graphs-grid {
@@ -1208,20 +1307,20 @@ body {
 }
 
 .graph-header {
-    color: rgba(255, 255, 255, 0.6);
+    color: var(--blanco-06);
     font-size: 0.8rem;
     margin-bottom: 5px;
 }
 
 .graph-stats {
-    color: white;
+    color: var(--blanco-total);
     font-size: 0.85rem;
     margin-bottom: 15px;
 }
 
 .graph-visual {
     height: 100px;
-    background: linear-gradient(180deg, rgba(0, 210, 255, 0.2) 0%, rgba(0, 210, 255, 0) 100%);
+    background: linear-gradient(180deg, var(--cyan-neon-02) 0%, var(--cyan-neon-00) 100%);
     border-bottom: 2px solid var(--accent-cyan);
     position: relative;
     /* Simplified graph visual */
