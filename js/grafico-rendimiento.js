@@ -1,12 +1,10 @@
-
 document.addEventListener('DOMContentLoaded', function () {
     initPerformanceCharts();
 });
 
-// 1. Capture "Now" once
+// 1. Capturar "Ahora" una vez para consistencia
 const REFERENCE_NOW = new Date();
 let currentRange = '15m';
-let resizeTimeout;
 const navigators = [];
 
 class ChartNavigator {
@@ -18,17 +16,15 @@ class ChartNavigator {
         this.handleLeft = graphCard.querySelector('.handle-left');
         this.handleRight = graphCard.querySelector('.handle-right');
         this.navWrapper = graphCard.querySelector('.navigator-canvas-wrapper');
-        this.startLabel = graphCard.querySelector('.nav-start-label');
-        this.endLabel = graphCard.querySelector('.nav-end-label');
 
         this.graphArea = graphCard.querySelector('.graph-area');
         this.xAxis = graphCard.querySelector('.graph-x-axis');
 
-        // Configuration for the current range
+        // Configuración inicial
         this.config = {
-            totalMinutes: 120, // Default 15m range (2h total)
+            totalMinutes: 120, // Default 15m (2h total)
             labelStepMinutes: 15,
-            windowDefaultPct: 12.5 // 15m is 12.5% of 120m
+            windowDefaultPct: 12.5
         };
 
         this.state = {
@@ -41,7 +37,7 @@ class ChartNavigator {
             trackWidth: 0,
             windowLeftPct: 100 - 12.5,
             windowWidthPct: 12.5,
-            minWidthPct: 1,
+            minWidthPct: 5,
             maxWidthPct: 100
         };
 
@@ -74,6 +70,12 @@ class ChartNavigator {
         const resizeObserver = new ResizeObserver(() => {
             this.updateTrackWidth();
             this.updateChart();
+            // Re-renderizar navigator al cambiar tamaño para evitar deformaciones
+            if (this.navWrapper && this.fullData) {
+                this.navWrapper.innerHTML = '';
+                // Usamos isMini=true para el navigator
+                renderSvgChart(this.navWrapper, this.fullData.map(d => d.value), this.index, true);
+            }
         });
         resizeObserver.observe(this.track);
     }
@@ -162,13 +164,7 @@ class ChartNavigator {
     }
 
     setRange(range) {
-        // Define Configuration based on Range
-        // 15m: Total 2h (120m), Window 15m, Step 15m
-        // 3h: Total 24h (1440m), Window 3h (180m), Step 3h (180m)
-        // 1d: Total 7d (10080m), Window 1d (1440m), Step 1d (1440m)
-        // 7d: Total 90d (129600m), Window 7d (10080m), Step 7d (10080m)
-        // 30d: Total 180d (259200m), Window 30d (43200m), Step 30d (43200m)
-
+        // Configurar según rango
         if (range === '15m') {
             this.config = { totalMinutes: 120, labelStepMinutes: 15, windowDefaultPct: (15 / 120) * 100 };
         } else if (range === '3h') {
@@ -181,26 +177,43 @@ class ChartNavigator {
             this.config = { totalMinutes: 259200, labelStepMinutes: 43200, windowDefaultPct: (43200 / 259200) * 100 };
         }
 
-        // Reset state
-        this.state.windowWidthPct = this.config.windowDefaultPct;
-        this.state.windowLeftPct = 100 - this.state.windowWidthPct; // Align to right (Now)
+        // Reset visual state
+        this.state.windowWidthPct = 100;
+        this.state.windowLeftPct = 0;
 
-        // Generate Navigator Data (Full Range)
-        // We generate points covering the totalMinutes ending at REFERENCE_NOW
-        const navData = generateChartData(this.config.totalMinutes, 50); // 50 points for navigator shape
+        // --- GENERACIÓN DE DATOS (FULL DATA) ---
+        // Generamos los datos una sola vez aquí. Estos serán la "verdad absoluta" 
+        // tanto para el Navigator (que los muestra todos) como para el Chart (que muestra una parte).
+        this.fullData = [];
+        const now = REFERENCE_NOW.getTime();
+        const start = now - this.config.totalMinutes * 60000;
 
-        // Render Navigator Chart
-        if (this.navWrapper) {
-            this.navWrapper.innerHTML = '';
-            // Navigator doesn't need circles or specific label alignments, just the shape
-            renderSvgChart(this.navWrapper, navData, this.index, true, []);
+        // Usamos suficientes puntos para que la curva sea suave (200 es un buen equilibrio)
+        const pointCount = 200;
+        const step = (now - start) / (pointCount - 1);
+
+        // Algoritmo "Random Walk" suave para evitar picos agresivos
+        let prevVal = Math.floor(Math.random() * 40) + 30;
+        for (let i = 0; i < pointCount; i++) {
+            const t = start + i * step;
+            // Variación pequeña para curvas suaves
+            let change = (Math.random() - 0.5) * 10;
+            let val = prevVal + change;
+
+            // Mantener dentro de límites lógicos
+            if (val < 5) val = 5 + Math.random() * 5;
+            if (val > 95) val = 95 - Math.random() * 5;
+            prevVal = val;
+
+            this.fullData.push({ time: t, value: val });
         }
 
-        // Update Navigator Labels (Start and End of Total Range)
-        if (this.startLabel && this.endLabel) {
-            const startTime = new Date(REFERENCE_NOW.getTime() - this.config.totalMinutes * 60000);
-            this.startLabel.innerHTML = formatSmartLabel(startTime, this.config.totalMinutes);
-            this.endLabel.innerHTML = formatSmartLabel(REFERENCE_NOW, this.config.totalMinutes);
+        // --- RENDERIZADO DEL NAVIGATOR ---
+        // Aquí ocurre la "clonación" visual. Usamos fullData directamente.
+        if (this.navWrapper) {
+            this.navWrapper.innerHTML = '';
+            // Pasamos solo los valores para el modo mini, pero derivados del mismo fullData
+            renderSvgChart(this.navWrapper, this.fullData.map(d => d.value), this.index, true);
         }
 
         this.updateUI();
@@ -208,29 +221,23 @@ class ChartNavigator {
     }
 
     updateChart() {
-        // 1. Calculate Visible Time Range
+        // 1. Calcular rango de tiempo visible
         const visibleDurationMinutes = (this.state.windowWidthPct / 100) * this.config.totalMinutes;
 
         const trackStartTime = new Date(REFERENCE_NOW.getTime() - this.config.totalMinutes * 60000);
         const visibleStartTime = new Date(trackStartTime.getTime() + (this.state.windowLeftPct / 100) * this.config.totalMinutes * 60000);
         const visibleEndTime = new Date(visibleStartTime.getTime() + visibleDurationMinutes * 60000);
 
-        // 2. Generate Labels
-        // Labels must be generated based on the Total Range grid (REFERENCE_NOW backwards by labelStepMinutes)
-        // We filter only those that fall within visibleStartTime and visibleEndTime
-
+        // 2. Generar Etiquetas (Labels)
         const labels = [];
-        const labelTimestamps = []; // Store timestamps to sync with circles
-
+        const labelTimestamps = [];
         const stepMs = this.config.labelStepMinutes * 60000;
-
-        // We iterate backwards from Now
         let currentTime = REFERENCE_NOW.getTime();
         const minVisible = visibleStartTime.getTime();
         const maxVisible = visibleEndTime.getTime();
 
-        // Safety break
         let iterations = 0;
+        // Generar etiquetas hacia atrás desde NOW
         while (currentTime >= trackStartTime.getTime() && iterations < 1000) {
             if (currentTime >= minVisible && currentTime <= maxVisible) {
                 labels.push({
@@ -243,20 +250,17 @@ class ChartNavigator {
             iterations++;
         }
 
-        // Sort labels by time ascending (left to right)
         labels.sort((a, b) => a.time - b.time);
         labelTimestamps.sort((a, b) => a - b);
 
-        // 3. Update X-Axis
+        // 3. Actualizar Eje X DOM
         if (this.xAxis && this.graphArea) {
             this.xAxis.innerHTML = labels.map(l => {
-                // Calculate position percentage relative to Visible Window
                 const timeInWindow = l.time.getTime() - minVisible;
                 const windowDurationMs = maxVisible - minVisible;
                 const pct = (timeInWindow / windowDurationMs) * 100;
 
                 let style = `left: ${pct}%;`;
-                // Adjust transform to center, but keep edges inside
                 if (pct < 5) style += ` transform: translateX(0%);`;
                 else if (pct > 95) style += ` transform: translateX(-100%);`;
                 else style += ` transform: translateX(-50%);`;
@@ -264,7 +268,7 @@ class ChartNavigator {
                 return `<span class="x-label" style="${style}">${l.text}</span>`;
             }).join('');
 
-            // 4. Update Chart Visual
+            // 4. Actualizar Visual del Gráfico Principal
             const existingWrapper = this.graphArea.querySelector('.chart-visual-wrapper');
             if (existingWrapper) existingWrapper.remove();
 
@@ -282,31 +286,36 @@ class ChartNavigator {
                 this.graphArea.insertBefore(chartWrapper, this.xAxis);
             }
 
-            // Generate Data Points for the Visible Window
-            // We need a high resolution line, but we MUST have points at 'labelTimestamps'
-            // Let's generate points every (visibleDuration / 50) roughly, but snap to labelTimestamps
+            // Filtrar fullData para mostrar solo lo visible + un pequeño buffer para suavizar bordes
+            const buffer = (maxVisible - minVisible) * 0.2;
+            const renderStart = minVisible - buffer;
+            const renderEnd = maxVisible + buffer;
 
-            const chartData = [];
-            // Add label points first
+            // Datos para el gráfico principal (Subconjunto de fullData)
+            let chartData = this.fullData.filter(d => d.time >= renderStart && d.time <= renderEnd)
+                .map(d => ({ time: d.time, value: d.value, isLabel: false }));
+
+            // Interpolación para asegurar que los puntos blancos de las etiquetas caigan exactamente en la línea
             labelTimestamps.forEach(ts => {
-                chartData.push({ time: ts, value: Math.floor(Math.random() * 60) + 20, isLabel: true });
+                const nextIdx = this.fullData.findIndex(d => d.time >= ts);
+                let val = 0;
+                if (nextIdx > 0 && nextIdx < this.fullData.length) {
+                    const p1 = this.fullData[nextIdx - 1];
+                    const p2 = this.fullData[nextIdx];
+                    const ratio = (ts - p1.time) / (p2.time - p1.time);
+                    val = p1.value + (p2.value - p1.value) * ratio;
+                } else if (nextIdx === 0 && this.fullData.length > 0) {
+                    val = this.fullData[0].value;
+                } else if (nextIdx === -1 && this.fullData.length > 0) {
+                    val = this.fullData[this.fullData.length - 1].value;
+                }
+                chartData.push({ time: ts, value: val, isLabel: true });
             });
 
-            // Fill gaps with random points for smooth line
-            const numFillPoints = 30;
-            const fillStep = (maxVisible - minVisible) / numFillPoints;
-            for (let i = 0; i <= numFillPoints; i++) {
-                const ts = minVisible + i * fillStep;
-                // Don't add if too close to a label point
-                if (!labelTimestamps.some(lts => Math.abs(lts - ts) < fillStep / 2)) {
-                    chartData.push({ time: ts, value: Math.floor(Math.random() * 60) + 20, isLabel: false });
-                }
-            }
-
-            // Sort by time
             chartData.sort((a, b) => a.time - b.time);
 
-            renderSvgChart(chartWrapper, chartData, this.index, false, labelTimestamps);
+            // Renderizar Gráfico Principal
+            renderSvgChart(chartWrapper, chartData, this.index, false, labelTimestamps, minVisible, maxVisible);
         }
     }
 }
@@ -339,7 +348,7 @@ function initPerformanceCharts() {
     });
 }
 
-// --- Helper Functions ---
+// --- Funciones Auxiliares ---
 
 function formatSmartLabel(date, totalMinutes) {
     const formatTime = (d) => {
@@ -349,21 +358,16 @@ function formatSmartLabel(date, totalMinutes) {
         hours = hours % 12;
         hours = hours ? hours : 12;
         const strMinutes = minutes < 10 ? '0' + minutes : minutes;
-        return `${hours}:${strMinutes} ${ampm}`;
+        return `${hours}:${strMinutes} <small>${ampm}</small>`;
     };
 
     const formatDate = (d) => {
         const day = d.getDate();
         const months = ['ENE', 'FEB', 'MAR', 'ABR', 'MAY', 'JUN', 'JUL', 'AGO', 'SEP', 'OCT', 'NOV', 'DIC'];
         const month = months[d.getMonth()];
-        // Font size difference for month
-        return `${day} <span style="font-size: 0.85em;">${month}</span>`;
+        return `${day} <small>${month}</small>`;
     };
 
-    // If total range is > 24h (1440m), show Date. Else show Time.
-    // 15m (120) -> Time
-    // 3h (1440) -> Time (User said "24 Hrs antes", usually implies time, but maybe date if crossing midnight? Let's stick to Time for < 1d)
-    // 1d (10080) -> Date
     if (totalMinutes <= 1440) {
         return formatTime(date);
     } else {
@@ -371,18 +375,11 @@ function formatSmartLabel(date, totalMinutes) {
     }
 }
 
-function generateChartData(totalMinutes, pointCount) {
-    // Generate simple array of values for Navigator
-    const values = [];
-    for (let i = 0; i < pointCount; i++) {
-        values.push(Math.floor(Math.random() * 60) + 20);
-    }
-    return values;
-}
-
-function renderSvgChart(container, data, chartIndex, isMini = false, labelTimestamps = []) {
+// Función de renderizado SVG (Curvas Bezier)
+function renderSvgChart(container, data, chartIndex, isMini = false, labelTimestamps = [], explicitMinTime = null, explicitMaxTime = null) {
     const width = container.offsetWidth;
     const height = container.offsetHeight;
+    // ID único para gradientes
     const gradientId = `chartGradient-${chartIndex}-${isMini ? 'mini' : 'main'}-${Math.random().toString(36).substr(2, 9)}`;
 
     const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
@@ -396,7 +393,7 @@ function renderSvgChart(container, data, chartIndex, isMini = false, labelTimest
     svg.style.zIndex = "1";
     svg.style.overflow = "visible";
 
-    // Gradient
+    // Definición del gradiente
     const defs = document.createElementNS("http://www.w3.org/2000/svg", "defs");
     const linearGradient = document.createElementNS("http://www.w3.org/2000/svg", "linearGradient");
     linearGradient.setAttribute("id", gradientId);
@@ -408,6 +405,7 @@ function renderSvgChart(container, data, chartIndex, isMini = false, labelTimest
     const stop1 = document.createElementNS("http://www.w3.org/2000/svg", "stop");
     stop1.setAttribute("offset", "0%");
     stop1.setAttribute("stop-color", "#00d2ff");
+    // Opacidad sutilmente menor para el mini gráfico
     stop1.setAttribute("stop-opacity", isMini ? "0.4" : "0.6");
 
     const stop2 = document.createElementNS("http://www.w3.org/2000/svg", "stop");
@@ -420,42 +418,71 @@ function renderSvgChart(container, data, chartIndex, isMini = false, labelTimest
     defs.appendChild(linearGradient);
     svg.appendChild(defs);
 
-    // Prepare Points
+    // Preparar Puntos X,Y
     let points = [];
     if (isMini) {
-        // Data is just array of numbers
+        // Modo Mini: Mapear valores simples a coordenadas
         const stepX = width / (data.length - 1);
-        points = data.map((val, i) => ({ x: i * stepX, y: height - (val / 100) * height }));
+        points = data.map((val, i) => ({
+            x: i * stepX,
+            y: height - (val / 100) * height // Escala 0-100% de la altura
+        }));
     } else {
-        // Data is array of { time, value, isLabel }
-        // We need to map time to X
+        // Modo Principal: Mapear Tiempo a coordenadas
         if (data.length < 2) return;
-        const minTime = data[0].time;
-        const maxTime = data[data.length - 1].time;
-        const timeRange = maxTime - minTime;
+        let minTime, maxTime, timeRange;
+
+        if (explicitMinTime !== null && explicitMaxTime !== null) {
+            minTime = explicitMinTime;
+            maxTime = explicitMaxTime;
+        } else {
+            minTime = data[0].time;
+            maxTime = data[data.length - 1].time;
+        }
+        timeRange = maxTime - minTime;
 
         points = data.map(d => ({
             x: ((d.time - minTime) / timeRange) * width,
-            y: height - (d.value / 100) * (height * 0.8),
+            y: height - (d.value / 100) * (height * 0.8), // Escala al 80% para dejar aire arriba
             isLabel: d.isLabel
         }));
     }
 
     if (points.length < 2) return;
 
-    // Path
+    // Lógica de Curvas Bezier Suaves
+    const getControlPoint = (current, previous, next, reverse) => {
+        const p = previous || current;
+        const n = next || current;
+        // Factor de suavizado (0.2 da curvas agradables, 0 sería líneas rectas)
+        const smoothing = 0.2;
+
+        const oX = n.x - p.x;
+        const oY = n.y - p.y;
+
+        const angle = Math.atan2(oY, oX) + (reverse ? Math.PI : 0);
+        const length = Math.sqrt(Math.pow(oX, 2) + Math.pow(oY, 2)) * smoothing;
+
+        const x = current.x + Math.cos(angle) * length;
+        const y = current.y + Math.sin(angle) * length;
+        return { x, y };
+    };
+
     let pathD = `M ${points[0].x} ${points[0].y}`;
     for (let i = 0; i < points.length - 1; i++) {
         const p0 = points[i];
         const p1 = points[i + 1];
-        const cp1x = p0.x + (p1.x - p0.x) / 2;
-        const cp1y = p0.y;
-        const cp2x = p0.x + (p1.x - p0.x) / 2;
-        const cp2y = p1.y;
-        pathD += ` C ${cp1x} ${cp1y}, ${cp2x} ${cp2y}, ${p1.x} ${p1.y}`;
+
+        const pPrev = points[i - 1] || p0;
+        const pNext = points[i + 2] || p1;
+
+        const cp1 = getControlPoint(p0, pPrev, p1, false);
+        const cp2 = getControlPoint(p1, p0, pNext, true);
+
+        pathD += ` C ${cp1.x} ${cp1.y}, ${cp2.x} ${cp2.y}, ${p1.x} ${p1.y}`;
     }
 
-    // Area
+    // Dibujar Área (Relleno Degradado)
     const areaPathData = `${pathD} L ${width} ${height} L 0 ${height} Z`;
     const areaPath = document.createElementNS("http://www.w3.org/2000/svg", "path");
     areaPath.setAttribute("d", areaPathData);
@@ -463,17 +490,18 @@ function renderSvgChart(container, data, chartIndex, isMini = false, labelTimest
     areaPath.setAttribute("stroke", "none");
     svg.appendChild(areaPath);
 
-    if (!isMini) {
-        const linePath = document.createElementNS("http://www.w3.org/2000/svg", "path");
-        linePath.setAttribute("d", pathD);
-        linePath.setAttribute("fill", "none");
-        linePath.setAttribute("stroke", "#00d2ff");
-        linePath.setAttribute("stroke-width", "2");
-        linePath.setAttribute("stroke-linecap", "round");
-        linePath.setAttribute("stroke-linejoin", "round");
-        svg.appendChild(linePath);
+    // Dibujar Línea (Borde Cyan)
+    const linePath = document.createElementNS("http://www.w3.org/2000/svg", "path");
+    linePath.setAttribute("d", pathD);
+    linePath.setAttribute("fill", "none");
+    linePath.setAttribute("stroke", "#00d2ff");
+    linePath.setAttribute("stroke-width", isMini ? "1" : "2"); // Línea más fina en navigator
+    linePath.setAttribute("stroke-linecap", "round");
+    linePath.setAttribute("stroke-linejoin", "round");
+    svg.appendChild(linePath);
 
-        // Circles - Only where isLabel is true
+    if (!isMini) {
+        // Círculos blancos solo en el gráfico principal donde hay etiquetas
         points.forEach(p => {
             if (p.isLabel) {
                 const circle = document.createElementNS("http://www.w3.org/2000/svg", "circle");

@@ -1659,3 +1659,7 @@ body {
     font-size: 0.8rem;
     font-family: 'Muli', sans-serif;
 }
+
+.chart-visual-wrapper {
+    overflow: hidden;
+}
