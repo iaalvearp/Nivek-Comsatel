@@ -1555,9 +1555,9 @@ body {
     display: flex;
     background-color: rgba(22, 33, 62, 0.6);
     /* Dark background for container */
-    padding: 5px;
-    border-radius: 20px;
-    gap: 5px;
+    padding: 4px;
+    border-radius: 8px;
+    gap: 4px;
     width: fit-content;
     margin-bottom: 20px;
 }
@@ -1566,10 +1566,10 @@ body {
     background: transparent;
     border: none;
     color: var(--blanco-06);
-    padding: 8px 20px;
-    border-radius: 15px;
+    padding: 6px 16px;
+    border-radius: 8px;
     cursor: pointer;
-    font-size: 0.9rem;
+    font-size: 0.75rem;
     font-weight: 600;
     transition: all 0.3s ease;
 }
