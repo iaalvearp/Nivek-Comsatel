@@ -78,3 +78,15 @@ function toggleAccordion(headerElement) {
         if (arrow) arrow.classList.add('rotate-180');
     }
 }
+
+// Notification dismissal
+document.addEventListener('click', function (event) {
+    if (event.target.classList.contains('close-x')) {
+        const notificationItem = event.target.closest('.notification-item');
+        if (notificationItem) {
+            notificationItem.style.transition = 'opacity 0.3s ease';
+            notificationItem.style.opacity = '0';
+            setTimeout(() => notificationItem.remove(), 300);
+        }
+    }
+});
