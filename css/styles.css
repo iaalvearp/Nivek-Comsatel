@@ -527,6 +527,15 @@ body {
     border-bottom: 1px solid var(--accent-cyan);
 }
 
+.menu-text {
+    background: transparent;
+    border: none;
+    color: var(--blanco-08);
+    font-size: 0.9rem;
+    font-family: 'Muli', sans-serif;
+    /* No fixed width, let it expand */
+}
+
 .menu-link {
     color: var(--blanco-total);
     text-decoration: none;
