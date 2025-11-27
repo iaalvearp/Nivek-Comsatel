@@ -1527,6 +1527,7 @@ body {
     height: 1px;
     background: var(--blanco-08);
     margin-top: -1px;
+    opacity: 0.4;
 }
 
 /* X-axis labels */
@@ -1583,4 +1584,78 @@ body {
     /* Lighter background for active */
     color: var(--blanco-total);
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+/* Chart Navigator Slider */
+.chart-navigator-container {
+    width: 100%;
+    margin-top: 5px;
+    margin-bottom: 0;
+    padding: 0 10px;
+}
+
+.navigator-track {
+    position: relative;
+    width: 100%;
+    height: 60px;
+    background: var(--azul-primario-06);
+    border-radius: 8px;
+    margin-bottom: 5px;
+    overflow: hidden;
+    /* Keep canvas inside */
+}
+
+.navigator-canvas-wrapper {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+}
+
+.navigator-window {
+    position: absolute;
+    top: 0;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid var(--blanco-04);
+    border-radius: 4px;
+    cursor: grab;
+    z-index: 2;
+    /* Initial position and width will be set by JS */
+    left: 0;
+    width: 20%;
+}
+
+.navigator-window:active {
+    cursor: grabbing;
+}
+
+.handle {
+    position: absolute;
+    top: 15%;
+    /* Center vertically with some padding */
+    bottom: 15%;
+    width: 4px;
+    background: var(--blanco-total);
+    border-radius: 2px;
+    cursor: ew-resize;
+    z-index: 3;
+}
+
+.handle-left {
+    left: 4px;
+}
+
+.handle-right {
+    right: 4px;
+}
+
+.navigator-labels {
+    display: flex;
+    justify-content: space-between;
+    color: var(--blanco-06);
+    font-size: 0.8rem;
+    font-family: 'Muli', sans-serif;
 }
